@@ -17,18 +17,27 @@ void Control::Update()
 
 void Control::Draw()
 {
+
 }
 
 void Control::UpdateInput()
 {
-	// キー入力の更新 (ななめ入力が許可されているので注意)
-	currentKey.y = CheckHitKey(KEY_INPUT_DOWN) - CheckHitKey(KEY_INPUT_UP);
-	currentKey.x = CheckHitKey(KEY_INPUT_RIGHT) - CheckHitKey(KEY_INPUT_LEFT);
+	// キー入力の更新（方向は -1 / 0 / +1）
+	currentKey.y = CheckHitKey(KEY_INPUT_UP) - CheckHitKey(KEY_INPUT_DOWN);
+	currentKey.x = CheckHitKey(KEY_INPUT_LEFT) - CheckHitKey(KEY_INPUT_RIGHT);
 
 	// 押されているか判定
 	if (currentKey.x != 0 || currentKey.y != 0)
-	{		
-		// 押された瞬間の処理
+	{
+		// ななめ入力を完全に無効化
+		if (currentKey.x != 0 && currentKey.y != 0)
+		{
+			DebugLog("斜め入力はできません"); //ここ
+			prevPushed = true; // 状態だけ更新
+			return;
+		}
+
+		// 押された瞬間のみ処理
 		if (!prevPushed)
 		{
 			OnInputEvent.Invoke(currentKey);
@@ -42,8 +51,13 @@ void Control::UpdateInput()
 	}
 }
 
+
+
 void Control::OnKeyPush(Vector2I dir)
 {
-	//キーが押されたときの処理
-	DebugLog("キーが押されたよ! ");
+	std::string msg =
+		"dir.x = " + std::to_string(dir.x) +
+		", dir.y = " + std::to_string(dir.y);
+
+	DebugLog(msg.c_str());
 }
