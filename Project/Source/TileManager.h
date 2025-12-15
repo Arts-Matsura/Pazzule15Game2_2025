@@ -2,6 +2,8 @@
 #include "../Library/gameObject.h"
 #include "Tile.h"
 #include <vector>
+#include "ActionEvent.h"
+
 
 class TileManager : public GameObject
 {
@@ -17,9 +19,16 @@ public:
 
 	void OnInputTile(Vector2I dir);
 
+	bool IsPerfectCheck();
 
+	ActionEvent<> OnMoveTile;
+	ActionEvent<> OnPerfectTile;
 
 private:
+	void OnMoveEvent();
+	void OnPerfectEvent();
+	void MoveRandomTile();
+
 	std::vector<std::vector<Tile*>> tile_list;
 	Tile* air_tile;
 };
