@@ -114,6 +114,9 @@
     <ClCompile Include="Source\cloudManager.cpp">
       <Filter>z_bannnai</Filter>
     </ClCompile>
+    <ClCompile Include="Source\enemy.cpp">
+      <Filter>tamada</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -245,6 +248,9 @@
     </ClInclude>
     <ClInclude Include="Source\cloudManager.h">
       <Filter>z_bannnai</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\enemy.h">
+      <Filter>tamada</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
