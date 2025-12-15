@@ -33,7 +33,10 @@ void Tile::SetTile(const Vector2I& _delta, float tileSize)
 
 void Tile::Draw()
 {
-	Vector2 pos = Vector2(transform.position + transform.scale);
-	Renderer::RectGraph(pos, offsetuv, Vector2I(512, 512) / 4,hdragon);
-	Renderer::Text(pos, Color::Magenta(), std::to_string(id));
+	if (transform.is_active)
+	{
+		Vector2 pos = Vector2(transform.position + transform.scale);
+		Renderer::RectGraph(pos, offsetuv, Vector2I(512, 512) / 4, hdragon);
+		Renderer::Text(pos, Color::Magenta(), std::to_string(id));
+	}
 }
