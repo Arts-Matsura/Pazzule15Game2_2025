@@ -4,6 +4,10 @@
 
 #include "cloud.h"
 
+namespace {
+	static const int LINE_MAX = 4;
+}
+
 class CloudManager :public GameObject {
 public:
 	CloudManager();
@@ -16,6 +20,9 @@ public:
 	void CreateSide(int Num);
 
 	void DeleteCloud();
+
+	int CloudImage(){ return cloudImage; }
 private:
-	Cloud clouds[4][4];
+	Cloud* clouds[LINE_MAX][LINE_MAX];
+	int cloudImage;
 };

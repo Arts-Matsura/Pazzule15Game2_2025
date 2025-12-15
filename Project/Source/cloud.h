@@ -7,7 +7,19 @@ public:
 	Cloud();
 	~Cloud();
 	void Update()override;
-	void Draw()override;
+	void Draw(int x,int y);
+
+	void CreateEffect();
+	void UpdateCreateEffect();
+
+	void DeleteEffect();
+	void UpdateDeleteEffect();
 
 	bool isCloud;
+	float survivalTime;
+
+private:
+
+	bool isCreate;
+	bool isDelete;
 };
