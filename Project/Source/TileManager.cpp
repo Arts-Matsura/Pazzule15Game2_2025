@@ -3,6 +3,9 @@
 TileManager::TileManager()
 {
 	CreateTiles(4, 4);
+
+	OnMoveTile += [this] { this->OnMoveEvent(); };
+	OnPerfectTile += [this] { this->OnPerfectEvent(); };
 }
 
 TileManager::~TileManager()
@@ -50,6 +53,9 @@ void TileManager::CreateTiles(int height, int width)
 	// 最後のタイルを非表示にする
 	air_tile = tile_list[height - 1][width - 1];
 	air_tile->transform.SetActive(false);
+
+	//move
+	MoveRandomTile();
 }
 
 void TileManager::DeleteTiles()
@@ -84,7 +90,6 @@ void TileManager::OnInputTile(Vector2I dir)
 		return;
 	}
 
-	DebugLog("MOVE!_" + std::to_string(dir.x) + "," + std::to_string(dir.y));
 
 	// 交換対象を取得（位置は保存しておく)
 	Tile* target_tile = tile_list[target_y][target_x];
@@ -97,4 +102,54 @@ void TileManager::OnInputTile(Vector2I dir)
 
 	// 配列内のポインタを入れ替える（保存した air_pos, target_* を使用)
 	std::swap(tile_list[air_pos.y][air_pos.x], tile_list[target_y][target_x]);
+
+	//DebugLog("MOVE!_" + std::to_string(dir.x) + "," + std::to_string(dir.y));
+	OnMoveTile.Invoke();
+}
+
+bool TileManager::IsPerfectCheck()
+{
+	int id = 0;
+	for (int h = 0; h < tile_list.size(); h++)
+	{
+		for (int w = 0; w < tile_list[h].size(); w++)
+		{
+			if (tile_list[h][w]->id != id)
+			{
+				return false;
+			}
+			id++;
+		}
+	}
+	return true;
+}
+
+void TileManager::OnMoveEvent()
+{
+	DebugLog("TileManager::OnMoveEvent");
+
+	if (IsPerfectCheck())
+	{
+		OnPerfectTile.Invoke();
+	}
+}
+
+void TileManager::OnPerfectEvent()
+{
+	DebugLog("TileManager::OnPerfectEvent");
+
+	DeleteTiles();
+	CreateTiles(4, 4);
+}
+
+void TileManager::MoveRandomTile()
+{
+	static const int dmax = 3;
+	static const int dir[dmax] = { -1,0,1 }; // 上下左右
+
+	// シャッフル
+	for (int i = 0; i < 100; i++)
+	{
+		OnInputTile(Vector2I(dir[GetRand(dmax)], dir[GetRand(dmax)]));
+	}
 }
