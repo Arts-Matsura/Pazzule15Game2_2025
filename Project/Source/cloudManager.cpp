@@ -11,10 +11,10 @@ CloudManager::CloudManager()
 			
 		}
 	}
-	CreateSide(1);
+	/*CreateSide(1);
 	CreateSide(3);
 	CreateVer(0);
-	CreateVer(2);
+	CreateVer(2);*/
 	
 
 	cloudImage = LoadGraph("data\\2D\\Cloud.png");
@@ -22,6 +22,13 @@ CloudManager::CloudManager()
 
 CloudManager::~CloudManager()
 {
+	for (int i = 0; i < LINE_MAX; i++)
+	{
+		for (int j = 0; j < LINE_MAX; j++)
+		{
+			delete clouds[i][j];
+		}
+	}
 }
 
 void CloudManager::Update()

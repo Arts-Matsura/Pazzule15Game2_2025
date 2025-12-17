@@ -4,10 +4,17 @@
 #include "../Library/time.h"
 #include "GameMain.h"
 
+#include "cloudManager.h"
+#include "darkness.h"
+#include "boss.h"
+
 
 TitleScene::TitleScene()
 {
 	new GameMain();//CoGƒo[ƒWƒ‡ƒ“‚ªˆá‚¤(4.1ˆÈã)
+
+
+	new Boss();
 }
 
 TitleScene::~TitleScene()

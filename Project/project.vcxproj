@@ -146,9 +146,11 @@
     <ClInclude Include="Library\time.h" />
     <ClInclude Include="Source\Animator.h" />
     <ClInclude Include="Source\bootScene.h" />
+    <ClInclude Include="Source\boss.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\cloud.h" />
     <ClInclude Include="Source\cloudManager.h" />
+    <ClInclude Include="Source\darkness.h" />
     <ClInclude Include="Source\enemy.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\control.h" />
@@ -192,11 +194,13 @@
     <ClCompile Include="Library\time.cpp" />
     <ClCompile Include="Source\Animator.cpp" />
     <ClCompile Include="Source\bootScene.cpp" />
+    <ClCompile Include="Source\boss.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\cloud.cpp" />
     <ClCompile Include="Source\cloudManager.cpp" />
     <ClCompile Include="Source\control.cpp" />
     <ClCompile Include="Source\CsvReader.cpp" />
+    <ClCompile Include="Source\darkness.cpp" />
     <ClCompile Include="Source\dashParticle.cpp" />
     <ClCompile Include="Source\enemy.cpp" />
     <ClCompile Include="Source\Fire.cpp" />

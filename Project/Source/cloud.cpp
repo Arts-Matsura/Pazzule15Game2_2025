@@ -28,7 +28,7 @@ void Cloud::Update()
 void Cloud::Draw(int x, int y)
 {
 	if (isCloud)
-		DrawRectRotaGraph(100 + x * (496 / 4.0f), 100 + y * (556 / 4.0f), 0, 0, 496, 556, 0.25f, 0.0f, FindGameObject<CloudManager>()->CloudImage(), true);
+		DrawRectRotaGraph(200 + x * (556 / 4.0f), 200 + y * (556 / 4.0f), 0, 0, 496, 556, 0.35f, 0.0f, FindGameObject<CloudManager>()->CloudImage(), true);
 }
 
 void Cloud::CreateEffect()
