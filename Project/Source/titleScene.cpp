@@ -7,6 +7,7 @@
 #include "cloudManager.h"
 #include "darkness.h"
 #include "boss.h"
+#include "attack.h"
 
 
 TitleScene::TitleScene()
@@ -15,6 +16,7 @@ TitleScene::TitleScene()
 
 
 	new Boss();
+	new Attack();
 }
 
 TitleScene::~TitleScene()

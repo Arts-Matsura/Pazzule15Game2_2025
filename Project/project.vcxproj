@@ -145,6 +145,7 @@
     <ClInclude Include="Library\sceneManager.h" />
     <ClInclude Include="Library\time.h" />
     <ClInclude Include="Source\Animator.h" />
+    <ClInclude Include="Source\attack.h" />
     <ClInclude Include="Source\bootScene.h" />
     <ClInclude Include="Source\boss.h" />
     <ClInclude Include="Source\Camera.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Source\playScene.h" />
     <ClInclude Include="Source\Renderer2D.h" />
     <ClInclude Include="Source\sceneFactory.h" />
+    <ClInclude Include="Source\sentence.h" />
     <ClInclude Include="Source\SingletonSample.h" />
     <ClInclude Include="Source\Sky.h" />
     <ClInclude Include="Source\Smoke.h" />
@@ -193,6 +195,7 @@
     <ClCompile Include="Library\sceneManager.cpp" />
     <ClCompile Include="Library\time.cpp" />
     <ClCompile Include="Source\Animator.cpp" />
+    <ClCompile Include="Source\attack.cpp" />
     <ClCompile Include="Source\bootScene.cpp" />
     <ClCompile Include="Source\boss.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -215,6 +218,7 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\playScene.cpp" />
     <ClCompile Include="Source\sceneFactory.cpp" />
+    <ClCompile Include="Source\sentence.cpp" />
     <ClCompile Include="Source\SingletonSample.cpp" />
     <ClCompile Include="Source\Sky.cpp" />
     <ClCompile Include="Source\Smoke.cpp" />

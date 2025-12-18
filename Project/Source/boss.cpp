@@ -4,14 +4,23 @@
 
 #include "../Library/time.h"
 
+namespace {
+	static const int FLASH_INTERVAL = 5; // 点滅周期（小さいほど速い）
+	static const int DAMAGE_INTERVAL = 2; // ダメージ振動（上と同様）
+}
+
 Boss::Boss()
 {
 	int randNum = GetRand(4) + 1;
-	/*std::string path = "data\\2D\\boss_0" + std::to_string(randNum) + ".png";*/
-	std::string path = "data\\2D\\boss_03.png";
+	std::string path = "data\\2D\\boss_0" + std::to_string(randNum) + ".png";
+	//std::string path = "data\\2D\\boss_03.png";
 	image = LoadGraph(path.c_str());
 
-	backimage = LoadGraph("data\\2D\\background.png");
+	path = "data\\2D\\boss_white_0" + std::to_string(randNum) + ".png";
+	whiteimage = LoadGraph(path.c_str());
+
+	path = "data\\2D\\background_0" + std::to_string(randNum) + ".png";
+	backimage = LoadGraph(path.c_str());
 	bookimage = LoadGraph("data\\2D\\book.png");
 	bookbackimage = LoadGraph("data\\2D\\leftback.png");
 	boximage = LoadGraph("data\\2D\\box.png");
@@ -28,8 +37,26 @@ Boss::Boss()
 
 	cloud = new CloudManager();
 	darkness = new Darkness();
+	sentence = new Sentence(randNum);
 
 	SetBackgroundColor(255, 255, 255);
+
+	nowAction = ACTION::ACTION_MAX;
+	pattern = PATTERN::STAY;
+
+	isActionMessage = false;
+
+	isAttack = false;
+	isDamage = false;
+	flashFrame = 0;
+
+	for(int i=0;i<3;i++)
+	{
+		damagePos[i].x = 0.0f;
+		damagePos[i].y = 0.0f;
+	}
+
+	HP = 5;
 }
 
 Boss::~Boss()
@@ -38,21 +65,56 @@ Boss::~Boss()
 
 void Boss::Update()
 {
-	if (actionCounter > 10.0f)
+	ACTION nextAction = static_cast<ACTION>(GetRand(ACTION_MAX - 1));
+	int sideNum = GetRand(1) + 1;
+	int sidePos = GetRand(3);
+	int verNum = GetRand(1) + 1;
+	int verPos = GetRand(3);
+
+	if (isAttack || isDamage)
 	{
-		actionCounter = -10.0f;
-		ACTION nextAction = static_cast<ACTION>(GetRand(ACTION_MAX - 1));
+		flashFrame++;
+		if (isDamage && (flashFrame / FLASH_INTERVAL) % 2 == 0)
+		{
+			/*isDamage = false;
+			flashFrame = 0;*/
 
-		int sideNum = GetRand(1) + 1;
-		int sidePos = GetRand(3);
-		int verNum = GetRand(1) + 1;
-		int verPos = GetRand(3);
 
-		switch (nextAction)
+			for (int i = 0; i < 3; i++)
+			{
+				damagePos[i].x = 50 * (sinf(rand()));
+				damagePos[i].y = 50 * (sinf(rand()));
+			}
+		}
+		
+	}
+	else
+		flashFrame = 0;
+
+	switch (pattern)
+	{
+	case Boss::ATTACK_START:
+
+		if (isAttack && flashFrame > 90)
+		{
+			isAttack = false;
+			flashFrame = 0;
+
+			
+
+			pattern = PATTERN::ATTACK;
+		}
+		break;
+	case Boss::ATTACK:
+		
+
+		
+
+		switch (nowAction)
 		{
 		case Boss::CLOUD_SIDE:
-			
-			
+
+
 			cloud->CreateSide(sideNum);
 			if (sideNum > 1)
 			{
@@ -63,7 +125,7 @@ void Boss::Update()
 			}
 			break;
 		case Boss::CLOUD_VER:
-			
+
 
 			cloud->CreateVer(verNum);
 			if (verNum > 1)
@@ -78,9 +140,50 @@ void Boss::Update()
 			darkness->EffectStart();
 			break;
 		}
+
+		pattern = PATTERN::STAY;
+
+		break;
+	case Boss::STAY:
+		if (actionCounter > 10.0f)
+		{
+			pattern = PATTERN::ATTACK_START;
+			isAttack = true;
+			actionCounter = -10.0f;
+			isActionMessage = false;
+		}
+		else if (!isActionMessage && actionCounter > 8.0f)
+		{
+			isActionMessage = true;
+			//ここで抽選を確定させ文字を表示する
+			nowAction = nextAction;
+			switch (nowAction)
+			{
+			case Boss::CLOUD_SIDE:
+				sentence->SetNextSentence(sentence->BossName() + "の\n鬼気迫る煙のスモーク");
+				break;
+			case Boss::CLOUD_VER:
+				sentence->SetNextSentence(sentence->BossName() + "の\n天空からの煙のスモーク");
+				break;
+			case Boss::DARKNESS:
+				sentence->SetNextSentence(sentence->BossName() + "の\n暗黒のダークネス");
+				break;
+			}
+		}
+		else
+			actionCounter += Time::DeltaTime();
+
+		break;
+	case Boss::DAMAGE:
+		if (isDamage && flashFrame > 30)
+		{
+			isDamage = false;
+			flashFrame = 0;
+
+			pattern = PATTERN::STAY;
+		}
+		break;
 	}
-	else
-		actionCounter += Time::DeltaTime();
 }
 
 void Boss::Draw()
@@ -93,21 +196,60 @@ void Boss::Draw()
 
 
 	//DrawBox(100, 100, 2000, 2000, GetColor(0, 0, 0), TRUE);
-	DrawRectRotaGraph(1200, 300, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
+	//SetDrawBright(230, 230, 230);
+	
+	if (isAttack)
+	{
+		if ((flashFrame / FLASH_INTERVAL) % 2 == 0)
+		{
+			// 通常描画
+			DrawRectRotaGraph(1200, 300, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
+		}
+		else
+		{
+			DrawRectRotaGraph(1200, 300, 0, 0, 260, 260, 1.6f, 0.0f, whiteimage, true);
+		}
+	}
+	else if (isDamage)
+	{
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
-	DrawBox(850, 600, 1550, 800, GetColor(0, 0, 0), TRUE);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	DrawBox(850, 600, 1550, 800, GetColor(255, 255, 255), FALSE);
+		SetDrawBright(73, 0, 0);
+		DrawRectRotaGraph(1200 + damagePos[0].x, 300 + damagePos[0].y, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
+
+		SetDrawBright(139, 0, 0);
+		DrawRectRotaGraph(1200 + damagePos[2].x, 300 + damagePos[2].y, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
+		
+		SetDrawBright(255, 0, 0);
+		DrawRectRotaGraph(1200 + damagePos[1].x, 300 + damagePos[1].y, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
+		SetDrawBright(255, 255, 255); // 戻す（重要）
+		//if ((flashFrame / FLASH_INTERVAL) % 2 == 0)
+
+	}
+	else
+		DrawRectRotaGraph(1200, 300, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
+	//SetDrawBright(255, 255, 255);
 
 	
 
-	std::string serihu = bossName + "があらわれた！！";
+	
+
+	/*std::string serihu = bossName + "があらわれた！！";
 
 	DrawStringToHandle(
 		900, 650,
 		serihu.c_str(),
 		GetColor(255, 255, 255),
 		fontHandle
-	);
+	);*/
+}
+
+void Boss::Damage(int damageNum)
+{
+	HP -= damageNum;
+
+	if (pattern != PATTERN::STAY)
+		return;
+
+	isDamage = true;
+	pattern = PATTERN::DAMAGE;
 }
