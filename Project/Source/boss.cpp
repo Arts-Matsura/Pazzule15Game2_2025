@@ -134,7 +134,7 @@ void Boss::Update()
 		{
 		case Boss::CLOUD_SIDE:
 
-			actionCounter -= 1.5f;
+			actionCounter -= 0.25f;
 			cloud->CreateSide(sideNum);
 			if (sideNum > 1)
 			{
@@ -146,7 +146,7 @@ void Boss::Update()
 			break;
 		case Boss::CLOUD_VER:
 
-			actionCounter -= 1.5f;
+			actionCounter -= 0.25f;
 			cloud->CreateVer(verNum);
 			if (verNum > 1)
 			{

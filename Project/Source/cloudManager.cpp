@@ -73,6 +73,9 @@ void CloudManager::Update()
 			break;
 		case CloudManager::FINISH:
 			effectAlphaLevel -= 10;
+
+			if (effectAlphaLevel <= 0)
+				isEffect = false;
 			break;
 		}
 	}

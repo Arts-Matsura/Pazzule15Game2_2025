@@ -24,4 +24,6 @@ private:
 	bool isDelete;
 
 	float efFrame; //エフェクトの時間
+
+	int alphaLevel;
 };
