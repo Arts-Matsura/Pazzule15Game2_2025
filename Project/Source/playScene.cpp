@@ -1,12 +1,20 @@
 #include "playScene.h"
 #include "../Library/sceneManager.h"
 #include <DxLib.h>
+#include "GameMain.h"
 
+#include "cloudManager.h"
+#include "darkness.h"
+#include "boss.h"
+#include "attack.h"
 
 PlayScene::PlayScene()
 {
 
+	new Boss();
+	new Attack();
 
+	new GameMain();//CoGƒo[ƒWƒ‡ƒ“‚ªˆá‚¤(4.1ˆÈã)
 }
 
 PlayScene::~PlayScene()
