@@ -5,6 +5,11 @@
 
 ContextTile* ContextTile::instance = nullptr;
 
+namespace
+{
+	static const Vector2 BasePosition = Vector2(-300.0f, -100.0f);
+}
+
 Tile::Tile() : Tile(0) {}
 Tile::Tile(int _id)
 {
@@ -31,7 +36,7 @@ void Tile::Draw()
 {
 	if (transform.is_active)
 	{
-		Vector2 pos = Vector2(transform.position + transform.scale);
+		Vector2 pos = Vector2(transform.position + transform.scale) + BasePosition;
 		Renderer::RectGraph(pos, offsetuv, ContextTile::Instance().imageSize / ContextTile::Instance().tileCount, ContextTile::Instance().hImage);
 		Renderer::Text(pos, Color::Magenta(), std::to_string(id));
 	}
