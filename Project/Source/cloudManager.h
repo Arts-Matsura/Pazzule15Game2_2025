@@ -22,7 +22,19 @@ public:
 	void DeleteCloud();
 
 	int CloudImage(){ return cloudImage; }
+
+	enum STATE {
+		BIGGER = 0,
+		SMALLER,
+		FINISH
+	};
 private:
 	Cloud* clouds[LINE_MAX][LINE_MAX];
 	int cloudImage;
+
+	bool isEffect;
+	int effectAlphaLevel;
+	float size;
+
+	STATE state;
 };

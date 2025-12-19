@@ -13,7 +13,6 @@ public:
 	void Draw()override;
 
 	void Damage(int damageNum, float stopnum);
-
 private:
 
 	enum ACTION {
@@ -58,6 +57,13 @@ private:
 	int HP;//最大は5を予定　大：4ダメージ　中：２ダメージ　小：１ダメージ予定
 
 	float hitStop;
+
+	bool isDead;
+
+	float downCounter;
+	int downSpeed;
+	int posY;
+	int sizeY;
 
 	Vector2 damagePos[3];
 };

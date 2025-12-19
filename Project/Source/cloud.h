@@ -22,4 +22,6 @@ private:
 
 	bool isCreate;
 	bool isDelete;
+
+	float efFrame; //エフェクトの時間
 };

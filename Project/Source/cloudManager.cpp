@@ -18,6 +18,11 @@ CloudManager::CloudManager()
 	
 
 	cloudImage = LoadGraph("data\\2D\\Cloud.png");
+
+	isEffect = false;
+	effectAlphaLevel = 155;
+	size = 1.0f;
+	state = STATE::BIGGER;
 }
 
 CloudManager::~CloudManager()
@@ -33,6 +38,44 @@ CloudManager::~CloudManager()
 
 void CloudManager::Update()
 {
+	float biggerRate = 0;
+	if (1.5 - size > 0.0f)
+		biggerRate = (0.5f / (1.5 - size)) - 1.0f;
+	else
+		biggerRate = 1.0f;
+
+
+	if (isEffect)
+	{
+		switch (state)
+		{
+		case CloudManager::BIGGER:
+			if (size < 1.5)
+				size += 0.025f;
+			else
+			{
+				size = 1.5f;
+				state = STATE::SMALLER;
+			}
+
+			effectAlphaLevel = 100 * biggerRate + 155;
+			break;
+		case CloudManager::SMALLER:
+			if (size > 1.2)
+				size -= 0.04f;
+			else
+			{
+				size = 1.2f;
+				state = STATE::FINISH;
+			}
+
+			effectAlphaLevel -= 10;
+			break;
+		case CloudManager::FINISH:
+			effectAlphaLevel -= 10;
+			break;
+		}
+	}
 }
 
 void CloudManager::Draw()
@@ -43,6 +86,13 @@ void CloudManager::Draw()
 		{
 			clouds[i][j]->Draw(i, j);
 		}
+	}
+	
+	if (isEffect)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, effectAlphaLevel);
+		DrawRectRotaGraph(410, 400, 0, 0, 496, 556, size, 0.0f, cloudImage, true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 }
 
@@ -58,6 +108,14 @@ void CloudManager::CreateVer(int Num)
 		clouds[Num][i]->survivalTime = 10.0f;
 		clouds[Num][i]->CreateEffect();
 	}
+
+	if (!isEffect)
+	{
+		isEffect = true;
+		effectAlphaLevel = 155;
+		size = 1.0f;
+		state = STATE::BIGGER;
+	}
 }
 
 void CloudManager::CreateSide(int Num)
@@ -67,6 +125,14 @@ void CloudManager::CreateSide(int Num)
 		clouds[i][Num]->isCloud = true;
 		clouds[i][Num]->survivalTime = 10.0f;
 		clouds[i][Num]->CreateEffect();
+	}
+
+	if (!isEffect)
+	{
+		isEffect = true;
+		effectAlphaLevel = 155;
+		size = 1.0f;
+		state = STATE::BIGGER;
 	}
 }
 

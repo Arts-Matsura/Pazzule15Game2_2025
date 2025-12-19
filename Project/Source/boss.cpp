@@ -59,6 +59,12 @@ Boss::Boss()
 	HP = 5;
 
 	hitStop = 0.0f;
+
+	isDead = false;
+	posY = 300;
+	sizeY = 260;
+	downCounter = 0.0f;
+	downSpeed = 5;
 }
 
 Boss::~Boss()
@@ -128,7 +134,7 @@ void Boss::Update()
 		{
 		case Boss::CLOUD_SIDE:
 
-
+			actionCounter -= 1.5f;
 			cloud->CreateSide(sideNum);
 			if (sideNum > 1)
 			{
@@ -140,7 +146,7 @@ void Boss::Update()
 			break;
 		case Boss::CLOUD_VER:
 
-
+			actionCounter -= 1.5f;
 			cloud->CreateVer(verNum);
 			if (verNum > 1)
 			{
@@ -198,7 +204,21 @@ void Boss::Update()
 		}
 		break;
 	case Boss::DEAD:
-		sentence->SetNextSentence(sentence->BossName() + "‚Í“|‚ê‚½");
+		if(!isDead)
+		{
+			sentence->SetNextSentence(sentence->BossName() + "‚Í“|‚ê‚½");
+		}
+
+		if (downCounter > 1.5f)
+		{
+			sizeY -= downSpeed;
+			posY += downSpeed;
+			downSpeed++;
+		}
+		else
+			downCounter += Time::DeltaTime();
+
+		isDead = true;
 
 		break;
 	}
@@ -244,7 +264,7 @@ void Boss::Draw()
 
 	}
 	else
-		DrawRectRotaGraph(1200, 300, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
+		DrawRectRotaGraph(1200, posY, 0, 0, 260, sizeY, 1.6f, 0.0f, image, true);
 	//SetDrawBright(255, 255, 255);
 
 	
