@@ -6,6 +6,8 @@ TileManager::TileManager()
 
 	OnMoveTile += [this] { this->OnMoveEvent(); };
 	OnPerfectTile += [this] { this->OnPerfectEvent(); };
+	OnCreateTile += [this] { this->MoveRandomTile(10); };
+	OnCreateTile += [] { ContextTile& Context = ContextTile::Instance();  Context.LoadGraph(GetRand(Context.IMAGE_MAX), Context.tileCount); };
 }
 
 TileManager::~TileManager()
@@ -55,7 +57,8 @@ void TileManager::CreateTiles(int height, int width)
 	air_tile->transform.SetActive(false);
 
 	//move
-	MoveRandomTile();
+	ContextTile::Instance().tileCount = width;
+	OnCreateTile.Invoke();
 }
 
 void TileManager::DeleteTiles()
@@ -142,13 +145,13 @@ void TileManager::OnPerfectEvent()
 	CreateTiles(4, 4);
 }
 
-void TileManager::MoveRandomTile()
+void TileManager::MoveRandomTile(int move_count)
 {
 	static const int dmax = 3;
 	static const int dir[dmax] = { -1,0,1 }; // 上下左右
 
 	// シャッフル
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < move_count; i++)
 	{
 		OnInputTile(Vector2I(dir[GetRand(dmax)], dir[GetRand(dmax)]));
 	}
