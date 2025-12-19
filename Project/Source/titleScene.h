@@ -17,4 +17,9 @@ private:
 	int image;
 	int rogoImage;
 	int keyImage;
+
+	float imagePosX, imagePosY;
+	float moveX, moveY;
+
+	float sizeFrame;
 };
