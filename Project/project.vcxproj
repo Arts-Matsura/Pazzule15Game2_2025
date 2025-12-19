@@ -152,6 +152,7 @@
     <ClInclude Include="Source\cloud.h" />
     <ClInclude Include="Source\cloudManager.h" />
     <ClInclude Include="Source\darkness.h" />
+    <ClInclude Include="Source\effect2D.h" />
     <ClInclude Include="Source\enemy.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\control.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Source\CsvReader.cpp" />
     <ClCompile Include="Source\darkness.cpp" />
     <ClCompile Include="Source\dashParticle.cpp" />
+    <ClCompile Include="Source\effect2D.cpp" />
     <ClCompile Include="Source\enemy.cpp" />
     <ClCompile Include="Source\Fire.cpp" />
     <ClCompile Include="Source\GameMain.cpp" />

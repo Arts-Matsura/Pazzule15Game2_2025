@@ -129,6 +129,9 @@
     <ClCompile Include="Source\attack.cpp">
       <Filter>z_bannnai</Filter>
     </ClCompile>
+    <ClCompile Include="Source\effect2D.cpp">
+      <Filter>z_bannnai</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -274,6 +277,9 @@
       <Filter>z_bannnai</Filter>
     </ClInclude>
     <ClInclude Include="Source\attack.h">
+      <Filter>z_bannnai</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\effect2D.h">
       <Filter>z_bannnai</Filter>
     </ClInclude>
   </ItemGroup>
