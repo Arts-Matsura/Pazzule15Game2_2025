@@ -23,13 +23,16 @@ public:
 private:
 
 	struct Effects {
-		int image;
-		int maxframe;
-		Vector2 pos;
-		int maxTime;
-		bool isActive;
+		int image; //‰æ‘œ
+		int maxframe; //‰æ‘œ‚Ì–‡”
+		Vector2 pos; //À•W
+		int size; //•`‰æ‚µ‚Ä‚¢‚éêŠ
+		Vector2 sizeMax; //•`‰æ”ÍˆÍ
+		int maxTime; //Ä¶ŠÔ
+		bool isActive; //“®‚¢‚Ä‚¢‚é‚©
+		int time;
 	};
 	Effects effects[EFFECT_MAX];
 
-	int frame;
+	
 };

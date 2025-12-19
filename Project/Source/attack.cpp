@@ -10,6 +10,8 @@ Attack::Attack()
     m_pos = m_start;
     m_frame = 0;
     m_isMoving = false;
+
+    effect = new Effect2D();
 }
 
 Attack::~Attack()
@@ -43,7 +45,8 @@ void Attack::Update()
         {
             t = 1.0f;
             m_isMoving = false;
-            FindGameObject<Boss>()->Damage(2);
+            FindGameObject<Boss>()->Damage(2, 0.15f);
+            effect->SetEffect(Effect2D::TYPE::TYPE_01, m_pos, 50);
         }
 
         // イージング（任意）
@@ -92,6 +95,8 @@ void Attack::Draw()
     }
 
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+    effect->Draw();
 }
 
 Vector2 Attack::Bezier2(float t)

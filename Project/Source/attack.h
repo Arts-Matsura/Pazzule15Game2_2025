@@ -1,6 +1,7 @@
 #pragma once
 #include "../Library/gameObject.h"
 
+#include "effect2D.h"
 #include <vector>
 
 class Attack :public GameObject {
@@ -35,4 +36,6 @@ private:
     static const int MOVE_TIME = 30;
 
     std::vector<Particle> particles;
+
+    Effect2D* effect;
 };

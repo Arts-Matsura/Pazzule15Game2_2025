@@ -12,7 +12,7 @@ public:
 	void Update()override;
 	void Draw()override;
 
-	void Damage(int damageNum);
+	void Damage(int damageNum, float stopnum);
 
 private:
 
@@ -29,7 +29,8 @@ private:
 		ATTACK_START = 0, //攻撃前の演出文字とか点滅
 		ATTACK, //攻撃
 		STAY, //待機時間
-		DAMAGE //ダメージの演出
+		DAMAGE, //ダメージの演出
+		DEAD
 	};
 	PATTERN pattern;
 
@@ -55,6 +56,8 @@ private:
 	int flashFrame; //boss本体演出に使用
 
 	int HP;//最大は5を予定　大：4ダメージ　中：２ダメージ　小：１ダメージ予定
+
+	float hitStop;
 
 	Vector2 damagePos[3];
 };

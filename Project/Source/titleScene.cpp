@@ -12,11 +12,13 @@
 
 TitleScene::TitleScene()
 {
-	new GameMain();//CoGバージョンが違う(4.1以上)
+	
 
 
 	new Boss();
 	new Attack();
+
+	new GameMain();//CoGバージョンが違う(4.1以上)
 }
 
 TitleScene::~TitleScene()

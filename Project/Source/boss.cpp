@@ -57,6 +57,8 @@ Boss::Boss()
 	}
 
 	HP = 5;
+
+	hitStop = 0.0f;
 }
 
 Boss::~Boss()
@@ -71,7 +73,19 @@ void Boss::Update()
 	int verNum = GetRand(1) + 1;
 	int verPos = GetRand(3);
 
-	if (isAttack || isDamage)
+	if (hitStop > 0.0f)
+	{
+		hitStop -= Time::DeltaTime();
+		if (hitStop <= 0.0f && HP <= 0)
+		{
+			isAttack = false;
+			isDamage = false;
+			pattern = PATTERN::DEAD;
+		}
+
+	}
+
+	if ((isAttack || isDamage) && hitStop <= 0.0f)
 	{
 		flashFrame++;
 		if (isDamage && (flashFrame / FLASH_INTERVAL) % 2 == 0)
@@ -183,6 +197,10 @@ void Boss::Update()
 			pattern = PATTERN::STAY;
 		}
 		break;
+	case Boss::DEAD:
+		sentence->SetNextSentence(sentence->BossName() + "‚Í“|‚ê‚½");
+
+		break;
 	}
 }
 
@@ -243,9 +261,10 @@ void Boss::Draw()
 	);*/
 }
 
-void Boss::Damage(int damageNum)
+void Boss::Damage(int damageNum, float stopnum)
 {
 	HP -= damageNum;
+	hitStop = stopnum;
 
 	if (pattern != PATTERN::STAY)
 		return;
