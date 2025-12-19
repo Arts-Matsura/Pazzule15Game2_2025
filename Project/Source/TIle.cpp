@@ -1,33 +1,29 @@
 #include "TIle.h"
 #include "Renderer2D.h"
 #include<assert.h>
+#include "../Library/resourceLoader.h"
 
-Tile::Tile() : Tile(0)
-{
-	
-}
+ContextTile* ContextTile::instance = nullptr;
 
+Tile::Tile() : Tile(0) {}
 Tile::Tile(int _id)
 {
 	id = _id;
-	//ドラゴンの画像の初期化
-	hdragon = LoadGraph("data\\2D\\cute_dragon.png");
-	assert(hdragon);
-	drawsize = Vector2I(512,512);
-	offsetuv = Vector2I(id % 4, id / 4) * (512 / 4);
+	//hImage = _hImage;
+	//drawsize = Vector2I(512,512);
+	int cnt = ContextTile::Instance().tileCount;
+	offsetuv = Vector2I(id % cnt, id / cnt) * (ContextTile::Instance().imageSize.x / cnt);
 }
 
 Tile::~Tile()
 {
-	//ドラゴンの画像のハンドルの削除
-	DeleteGraph(hdragon);
 }
 
 void Tile::SetTile(const Vector2I& _delta, float tileSize)
 {
 	delta = _delta;
 	//transform.position = Vector3(_delta.x, _delta.y, 0.0f) * tileSize;
-	 transform.position = Vector3(_delta.x, _delta.y, 0.0f) * (512 /4);
+	 transform.position = Vector3(_delta.x, _delta.y, 0.0f) * (ContextTile::Instance().imageSize.x / ContextTile::Instance().tileCount);
 	//transform.scale = Vector3(tileSize, tileSize, 1.0f) / 2.0f;
 }
 
@@ -36,7 +32,26 @@ void Tile::Draw()
 	if (transform.is_active)
 	{
 		Vector2 pos = Vector2(transform.position + transform.scale);
-		Renderer::RectGraph(pos, offsetuv, Vector2I(512, 512) / 4, hdragon);
+		Renderer::RectGraph(pos, offsetuv, ContextTile::Instance().imageSize / ContextTile::Instance().tileCount, ContextTile::Instance().hImage);
 		Renderer::Text(pos, Color::Magenta(), std::to_string(id));
 	}
+}
+
+void ContextTile::LoadGraph(int id, int tileCount)
+{
+	int& hImage = ContextTile::hImage;
+	if (hImage <= 0)
+	{
+		DeleteGraph(hImage);
+		hImage = -1;
+	}
+
+	// Load
+	static const std::string path = "data/2D/sheet_";
+	hImage = ResourceLoader::LoadGraph(path + std::to_string(id) + ".png");
+	assert(hImage >= 0);
+	
+	ContextTile::imageSize = GetGraphSize(hImage);
+	ContextTile::tileCount = tileCount;
+	ContextTile::tileSize = ContextTile::imageSize.x / static_cast<float>(tileCount);
 }

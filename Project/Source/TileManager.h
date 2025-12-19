@@ -23,11 +23,12 @@ public:
 
 	ActionEvent<> OnMoveTile;
 	ActionEvent<> OnPerfectTile;
+	ActionEvent<> OnCreateTile;
 
 private:
 	void OnMoveEvent();
 	void OnPerfectEvent();
-	void MoveRandomTile();
+	void MoveRandomTile(int move_count);
 
 	std::vector<std::vector<Tile*>> tile_list;
 	Tile* air_tile;

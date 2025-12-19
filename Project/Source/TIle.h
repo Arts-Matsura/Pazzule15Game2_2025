@@ -2,6 +2,38 @@
 #include"Transform.h"
 #include"../Library/gameObject.h"
 
+class ContextTile
+{
+private:
+	static ContextTile* instance;
+
+	//private
+	float tileSize = 128.0f;
+public:
+	//private
+	int hImage = -1;
+
+	//private
+	Vector2I imageSize = Vector2I(512, 512);
+	//private
+	int tileCount = 4;
+	//public
+	const int IMAGE_MAX = 4;
+
+	//public
+	void LoadGraph(int id, int tileCount);
+
+	static ContextTile& Instance()
+	{
+		if (instance == nullptr)
+		{
+			instance = new ContextTile();
+		}
+
+		return (*instance);
+	}
+};
+
 class Tile
 {
 public:
@@ -14,11 +46,9 @@ public:
 	void SetTile(const Vector2I& _delta, float tileSize);
 
 //private:
-	int hdragon;//ドラゴンの画像
+	//int hdragon;//ドラゴンの画像
 	Transform transform;
 	Vector2I delta;	//今のマス目
 	int id;			//自分の番号
 	Vector2I offsetuv;
-	Vector2I drawsize;
-
 };
