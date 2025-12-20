@@ -52,6 +52,7 @@ void Cloud::Draw(int x, int y)
 
 void Cloud::CreateEffect()
 {
+	alphaLevel = 255;
 	isCreate = true;
 	efFrame = 0.25f;
 }

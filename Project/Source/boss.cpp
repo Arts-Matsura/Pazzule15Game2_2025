@@ -29,8 +29,8 @@ Boss::Boss()
 
 	fontHandle = CreateFontToHandle(
 		"KHドット道玄坂16", // フォント名
-		32,               // サイズ
-		3                 // 太さ
+		50,               // サイズ
+		6                 // 太さ
 	);
 
 	actionCounter = 0.0f;
@@ -65,6 +65,14 @@ Boss::Boss()
 	sizeY = 260;
 	downCounter = 0.0f;
 	downSpeed = 5;
+
+	isInversion = false;
+	inversionTime = 0.0f;
+	inversionLevel = 1.0f;
+	inversionState = INVERSION_STATE::INVERSION_START;
+
+	boxPos.x = 40.0f;
+	boxPos.y = 100.0f;
 }
 
 Boss::~Boss()
@@ -89,6 +97,32 @@ void Boss::Update()
 			pattern = PATTERN::DEAD;
 		}
 
+	}
+
+	if (isInversion)
+	{
+		inversionTime += Time::DeltaTime();
+		if (inversionTime > 9.0f)
+			inversionState = INVERSION_STATE::RETURN;
+		
+		switch (inversionState)
+		{
+		case Boss::INVERSION_START:
+			inversionLevel -= 0.05f;
+			break;
+		case Boss::RETURN:
+			inversionLevel += 0.05f;
+			break;
+		}
+		inversionLevel = std::clamp(inversionLevel, -1.0f, 1.0f);
+
+		if (inversionTime > 10.0f)
+		{
+			isInversion = false;
+			inversionTime = 0.0f;
+			inversionLevel = 1.0f;
+			inversionState = INVERSION_STATE::INVERSION_START;
+		}
 	}
 
 	if ((isAttack || isDamage) && hitStop <= 0.0f)
@@ -159,6 +193,9 @@ void Boss::Update()
 		case Boss::DARKNESS:
 			darkness->EffectStart();
 			break;
+		case Boss::INVERSION:
+			inversionLevel = std::clamp(inversionLevel, -1.0f, 1.0f);
+			isInversion = true;
 		}
 
 		pattern = PATTERN::STAY;
@@ -180,13 +217,16 @@ void Boss::Update()
 			switch (nowAction)
 			{
 			case Boss::CLOUD_SIDE:
-				sentence->SetNextSentence(sentence->BossName() + "の\n鬼気迫る煙のスモーク");
+				sentence->SetNextSentence(sentence->BossName() + "の\n灰燼の一線 (スモーク・バレット)");
 				break;
 			case Boss::CLOUD_VER:
-				sentence->SetNextSentence(sentence->BossName() + "の\n天空からの煙のスモーク");
+				sentence->SetNextSentence(sentence->BossName() + "の\n灰天落とし (スモーク・フォール)");
 				break;
 			case Boss::DARKNESS:
-				sentence->SetNextSentence(sentence->BossName() + "の\n暗黒のダークネス");
+				sentence->SetNextSentence(sentence->BossName() + "の\n暗黒領域 冥闇降界 (ダークネス・アビス)");
+				break;
+			case Boss::INVERSION:
+				sentence->SetNextSentence(sentence->BossName() + "の\n反転領域 冥界転位 (インバートワールド)");
 				break;
 			}
 		}
@@ -227,10 +267,13 @@ void Boss::Update()
 void Boss::Draw()
 {
 	
-	DrawRectRotaGraph(200, 450, 0, 0, 1024, 732, 1.3f, 0.0f, bookbackimage, true);
-	DrawRectRotaGraph(390, 450, 0, 0, 788, 900, 1.05f, 0.0f, bookimage, true);
-	DrawRectRotaGraph(1200, 400, 0, 0, 1024, 1024, 1.0f, 0.0f, backimage, true);
-	DrawRectRotaGraph(410, 400, 0, 0, 504, 504, 1.2f, 0.0f, boximage, true);
+	DrawRectRotaGraph(200, 450, 0, 0, 1024, 732, 1.3f * inversionLevel, 0.0f, bookbackimage, true);
+	DrawRectRotaGraph(390, 450, 0, 0, 788, 900, 1.05f * inversionLevel, 0.0f, bookimage, true);
+	DrawRectRotaGraph(1200, 400, 0, 0, 1024, 1024, 1.0f * inversionLevel, 0.0f, backimage, true);
+
+	float boxLevel = std::clamp(1.0f - inversionLevel, 0.0f, 1.0f);
+
+	DrawRectRotaGraph(410 - boxPos.x * boxLevel, 400 + boxPos.y * boxLevel, 0, 0, 504, 504, 1.2f * inversionLevel, 0.0f, boximage, true);
 
 
 	//DrawBox(100, 100, 2000, 2000, GetColor(0, 0, 0), TRUE);
@@ -241,35 +284,39 @@ void Boss::Draw()
 		if ((flashFrame / FLASH_INTERVAL) % 2 == 0)
 		{
 			// 通常描画
-			DrawRectRotaGraph(1200, 300, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
+			DrawRectRotaGraph(1200, 300, 0, 0, 260, 260, 1.6f * inversionLevel, 0.0f, image, true);
 		}
 		else
 		{
-			DrawRectRotaGraph(1200, 300, 0, 0, 260, 260, 1.6f, 0.0f, whiteimage, true);
+			DrawRectRotaGraph(1200, 300, 0, 0, 260, 260, 1.6f * inversionLevel, 0.0f, whiteimage, true);
 		}
 	}
 	else if (isDamage)
 	{
 
 		SetDrawBright(73, 0, 0);
-		DrawRectRotaGraph(1200 + damagePos[0].x, 300 + damagePos[0].y, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
+		DrawRectRotaGraph(1200 + damagePos[0].x, 300 + damagePos[0].y, 0, 0, 260, 260, 1.6f * inversionLevel, 0.0f, image, true);
 
 		SetDrawBright(139, 0, 0);
-		DrawRectRotaGraph(1200 + damagePos[2].x, 300 + damagePos[2].y, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
-		
+		DrawRectRotaGraph(1200 + damagePos[2].x, 300 + damagePos[2].y, 0, 0, 260, 260, 1.6f * inversionLevel, 0.0f, image, true);
+
 		SetDrawBright(255, 0, 0);
-		DrawRectRotaGraph(1200 + damagePos[1].x, 300 + damagePos[1].y, 0, 0, 260, 260, 1.6f, 0.0f, image, true);
+		DrawRectRotaGraph(1200 + damagePos[1].x, 300 + damagePos[1].y, 0, 0, 260, 260, 1.6f * inversionLevel, 0.0f, image, true);
 		SetDrawBright(255, 255, 255); // 戻す（重要）
 		//if ((flashFrame / FLASH_INTERVAL) % 2 == 0)
 
 	}
 	else
-		DrawRectRotaGraph(1200, posY, 0, 0, 260, sizeY, 1.6f, 0.0f, image, true);
+		DrawRectRotaGraph(1200, posY, 0, 0, 260, sizeY, 1.6f * inversionLevel, 0.0f, image, true);
 	//SetDrawBright(255, 255, 255);
 
-	
-
-	
+	DrawFormatStringToHandle(
+		1300, 200,
+		GetColor(255, 255, 255),
+		fontHandle,
+		"%d",
+		10 - (int)actionCounter
+	);
 
 	/*std::string serihu = bossName + "があらわれた！！";
 

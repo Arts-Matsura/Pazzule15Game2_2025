@@ -1,7 +1,7 @@
 #include "sentence.h"
 
 namespace {
-	std::string BOSS_NAMES[] = {"ぼす１",
+	std::string BOSS_NAMES[] = {"炎獄の魔王　エンジャーク",
 							"ぼす２",
 							"ぼす３",
 							"ぼす４",

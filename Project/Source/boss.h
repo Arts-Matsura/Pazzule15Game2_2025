@@ -12,6 +12,8 @@ public:
 	void Update()override;
 	void Draw()override;
 
+	float InversionLevel() { return inversionLevel; }
+
 	void Damage(int damageNum, float stopnum);
 private:
 
@@ -19,6 +21,7 @@ private:
 		CLOUD_SIDE = 0,
 		CLOUD_VER,
 		DARKNESS,
+		INVERSION,
 		ACTION_MAX
 	};
 	ACTION nowAction;
@@ -65,5 +68,17 @@ private:
 	int posY;
 	int sizeY;
 
+	enum INVERSION_STATE {
+		INVERSION_START = 0,
+		RETURN
+	};
+	INVERSION_STATE inversionState;
+
+	bool isInversion;
+	float inversionTime;
+	float inversionLevel;
+
 	Vector2 damagePos[3];
+
+	Vector2 boxPos;
 };
