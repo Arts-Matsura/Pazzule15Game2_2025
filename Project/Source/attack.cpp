@@ -1,6 +1,7 @@
 #include "attack.h"
 
 #include "boss.h"
+#include "sound.h"
 
 Attack::Attack()
 {
@@ -29,6 +30,7 @@ void Attack::Update()
         m_frame = 0;
         m_isMoving = true;
         m_control = CreateControlPoint(300);
+        FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACK, 9000);
     }
     prevAKey = nowAKey;
 
@@ -46,7 +48,12 @@ void Attack::Update()
             t = 1.0f;
             m_isMoving = false;
             FindGameObject<Boss>()->Damage(2, 0.15f);
+
             effect->SetEffect(Effect2D::TYPE::TYPE_01, m_pos, 50);
+            FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKPLASMA, 9000);
+            
+            FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKHIT_01, 9000);
+            FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKHIT_02, 9000);
         }
 
         // イージング（任意）

@@ -5,7 +5,14 @@
 Sound::Sound()
 {
 	soundHandle[SOUND::START] = ResourceLoader::LoadSoundMem("data\\Sound\\start_sound.wav");
-	soundHandle[SOUND::ATTACK] = ResourceLoader::LoadSoundMem("");
+	soundHandle[SOUND::ATTACK] = ResourceLoader::LoadSoundMem("data\\Sound\\attack_Sound.wav");
+	soundHandle[SOUND::ATTACKHIT_01] = ResourceLoader::LoadSoundMem("data\\Sound\\magicHit_Sound_1.wav");
+	soundHandle[SOUND::ATTACKHIT_02] = ResourceLoader::LoadSoundMem("data\\Sound\\magicHit_Sound_2.wav");
+	soundHandle[SOUND::ATTACKPLASMA] = ResourceLoader::LoadSoundMem("data\\Sound\\magicHitPlasma_Sound.mp3");
+	soundHandle[SOUND::BOSSATTACK] = ResourceLoader::LoadSoundMem("data\\Sound\\bossAttack_Sound.wav");
+	soundHandle[SOUND::CLOUD] = ResourceLoader::LoadSoundMem("data\\Sound\\cloud_Sound.wav");
+	soundHandle[SOUND::DARKNESS] = ResourceLoader::LoadSoundMem("data\\Sound\\darkness_Sound.wav");
+	soundHandle[SOUND::INVERSION] = ResourceLoader::LoadSoundMem("data\\Sound\\inversion_Sound.wav");
 
 	BGMHandle[BGM::TITLE] = ResourceLoader::LoadSoundMem("data\\Sound\\Title_BGM.wav");
 	BGMHandle[BGM::PLAY] = ResourceLoader::LoadSoundMem("data\\Sound\\Play_BGM.wav");

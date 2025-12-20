@@ -1,6 +1,7 @@
 #include "boss.h"
 
 #include "cloudManager.h"
+#include "sound.h"
 
 #include "../Library/time.h"
 
@@ -161,7 +162,19 @@ void Boss::Update()
 			flashFrame = 0;
 
 			
-
+			switch (nowAction)
+			{
+			case Boss::CLOUD_SIDE:
+			case Boss::CLOUD_VER:
+				FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::CLOUD, 9000);
+				break;
+			case Boss::DARKNESS:
+				FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::DARKNESS, 12000);
+				break;
+			case Boss::INVERSION:
+				FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::INVERSION, 9000);
+				break;
+			}
 			pattern = PATTERN::ATTACK;
 		}
 		break;
@@ -210,6 +223,7 @@ void Boss::Update()
 	case Boss::STAY:
 		if (actionCounter > 10.0f)
 		{
+			FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::BOSSATTACK, 10000);
 			pattern = PATTERN::ATTACK_START;
 			isAttack = true;
 			actionCounter = -10.0f;
@@ -217,6 +231,7 @@ void Boss::Update()
 		}
 		else if (!isActionMessage && actionCounter > 8.0f)
 		{
+			
 			isActionMessage = true;
 			//‚±‚±‚Å’Š‘I‚ðŠm’è‚³‚¹•¶Žš‚ð•\Ž¦‚·‚é
 			nowAction = nextAction;
