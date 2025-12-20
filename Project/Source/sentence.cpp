@@ -1,11 +1,11 @@
 #include "sentence.h"
 
 namespace {
-	std::string BOSS_NAMES[] = {"炎獄の魔王　エンジャーク",
-							"ぼす２",
-							"ぼす３",
-							"ぼす４",
-							"ぼす５" };
+	std::string BOSS_NAMES[] = {"炎獄の魔王 エンジャーク",
+								"漆黒の邪神 ハセガーワT",
+								"氷結の蒼龍 ゼロクリス",
+								"龍王 グレンドラゴ",
+								"超神龍 オーバーワールド" };
 }
 
 
@@ -19,7 +19,7 @@ Sentence::Sentence(int num)
 
 	isAction = true;
 
-	nowPos = Vector2(900, 650);
+	nowPos = Vector2(880, 650);
 	nextPos = Vector2(900, 650);
 
 	bossName = BOSS_NAMES[num - 1].c_str();

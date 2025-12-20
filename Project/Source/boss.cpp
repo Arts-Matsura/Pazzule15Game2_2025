@@ -33,6 +33,12 @@ Boss::Boss()
 		6                 // 太さ
 	);
 
+	fontOutHandle = CreateFontToHandle(
+		"KHドット道玄坂16", // フォント名
+		56,               // サイズ
+		7                 // 太さ
+	);
+
 	actionCounter = 0.0f;
 
 	cloud = new CloudManager();
@@ -310,6 +316,13 @@ void Boss::Draw()
 		DrawRectRotaGraph(1200, posY, 0, 0, 260, sizeY, 1.6f * inversionLevel, 0.0f, image, true);
 	//SetDrawBright(255, 255, 255);
 
+	DrawFormatStringToHandle(
+		1300, 200,
+		GetColor(0, 0, 0),
+		fontOutHandle,
+		"%d",
+		10 - (int)actionCounter
+	);
 	DrawFormatStringToHandle(
 		1300, 200,
 		GetColor(255, 255, 255),

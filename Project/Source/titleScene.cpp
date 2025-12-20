@@ -6,6 +6,8 @@
 #include "../Library/resourceLoader.h"
 #include "Screen.h"
 
+#include "sound.h"
+
 TitleScene::TitleScene()
 {
 	
@@ -19,6 +21,14 @@ TitleScene::TitleScene()
 	moveY = 0.5f;
 
 	sizeFrame = 0.0f;
+
+	sound = new Sound();
+	sound->SetPlayBGM(Sound::BGM::TITLE, 9000);
+
+	fade = new Fade();
+	fade->FadeOutStart(1.0f);
+
+	isPushKey = false;
 }
 
 TitleScene::~TitleScene()
@@ -27,7 +37,20 @@ TitleScene::~TitleScene()
 
 void TitleScene::Update()
 {
-	if (CheckHitKey(KEY_INPUT_SPACE)) {
+	if (CheckHitKey(KEY_INPUT_V)) {
+		sound->SetPlaySound(Sound::SOUND::START, 10000);
+	}
+
+	if (CheckHitKey(KEY_INPUT_SPACE)&&!isPushKey) {
+		
+		isPushKey = true;
+		sound->SetPlaySound(Sound::SOUND::START, 10000);
+		fade->FadeInStart(2.0f);
+	}
+
+	if (isPushKey && !fade->FadeEnd())
+	{
+		sound->StopPlayBGM();
 		SceneManager::ChangeScene("PlayScene");
 	}
 
@@ -52,10 +75,13 @@ void TitleScene::Update()
 void TitleScene::Draw()
 {
 	//DrawString(0, 0, "Title Scene", GetColor(255, 255, 255));	
-	SceneBase::Draw();
-
 	DrawRectRotaGraph(Screen::WIDTH / 2 + imagePosX, Screen::HEIGHT / 2 + imagePosY, 0, 0, 1536, 1024, 1.1f, 0.0f, image, true);
 	DrawRectRotaGraph(Screen::WIDTH / 2, Screen::HEIGHT / 2 - 100, 0, 0, 1536, 1024, 0.7f, 0.0f, rogoImage, true);
 	DrawRectRotaGraph(Screen::WIDTH / 2, Screen::HEIGHT / 2 + 300, 0, 0, 1536, 1024, 0.5f + 0.2f * sinf(sizeFrame), 0.0f, keyImage, true);
+
+	fade->Draw();
+
+	SceneBase::Draw();
+
 }
 

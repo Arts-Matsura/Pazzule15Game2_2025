@@ -1,5 +1,7 @@
 #pragma once
 #include "../Library/sceneBase.h"
+#include "sound.h"
+
 
 class PlayScene : public 
 	SceneBase {
@@ -10,4 +12,6 @@ public:
 	void Draw() override;
 private:
 	int hShadow; // シャドウバッファのハンドラ
+
+	Sound* sound;
 };

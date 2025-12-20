@@ -154,6 +154,7 @@
     <ClInclude Include="Source\darkness.h" />
     <ClInclude Include="Source\effect2D.h" />
     <ClInclude Include="Source\enemy.h" />
+    <ClInclude Include="Source\fade.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\control.h" />
     <ClInclude Include="Source\CsvReader.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Source\SingletonSample.h" />
     <ClInclude Include="Source\Sky.h" />
     <ClInclude Include="Source\Smoke.h" />
+    <ClInclude Include="Source\sound.h" />
     <ClInclude Include="Source\SoundManager.h" />
     <ClInclude Include="Source\sparkle.h" />
     <ClInclude Include="Source\sparks.h" />
@@ -208,6 +210,7 @@
     <ClCompile Include="Source\dashParticle.cpp" />
     <ClCompile Include="Source\effect2D.cpp" />
     <ClCompile Include="Source\enemy.cpp" />
+    <ClCompile Include="Source\fade.cpp" />
     <ClCompile Include="Source\Fire.cpp" />
     <ClCompile Include="Source\GameMain.cpp" />
     <ClCompile Include="Source\Ground.cpp" />
@@ -224,6 +227,7 @@
     <ClCompile Include="Source\SingletonSample.cpp" />
     <ClCompile Include="Source\Sky.cpp" />
     <ClCompile Include="Source\Smoke.cpp" />
+    <ClCompile Include="Source\sound.cpp" />
     <ClCompile Include="Source\SoundManager.cpp" />
     <ClCompile Include="Source\sparkle.cpp" />
     <ClCompile Include="Source\sparks.cpp" />

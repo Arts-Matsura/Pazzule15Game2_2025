@@ -48,6 +48,7 @@ private:
 	std::string bossName;
 
 	int fontHandle;
+	int fontOutHandle;
 
 	CloudManager* cloud;
 	Darkness* darkness;

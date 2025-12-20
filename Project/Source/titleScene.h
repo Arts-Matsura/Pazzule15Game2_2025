@@ -1,6 +1,7 @@
 #pragma once
 #include "../Library/sceneBase.h"
-
+#include "sound.h"
+#include "fade.h"
 /// <summary>
 /// タイトルシーン
 /// 
@@ -22,4 +23,9 @@ private:
 	float moveX, moveY;
 
 	float sizeFrame;
+
+	Sound* sound;
+	Fade* fade;
+
+	bool isPushKey;
 };
