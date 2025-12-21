@@ -11,6 +11,8 @@ public:
 	void Draw()override;
 
 private:
+	int image;
+	bool isPushKey;
 
 	Sound* sound;
 	Fade* fade;

@@ -47,7 +47,7 @@ void PlayScene::Update()
 	if (FindGameObject<Judge>()->ChangeScene())
 	{
 		sound->StopPlayBGM();
-		SceneManager::ChangeScene("TitleScene");
+		SceneManager::ChangeScene("ResultScene");
 	}
 
 	SceneBase::Update();

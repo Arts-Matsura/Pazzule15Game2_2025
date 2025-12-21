@@ -64,12 +64,12 @@ void Judge::Update()
 	{
 		if (!fadeStart)
 		{
-			FindGameObject<Fade>()->FadeOutStart(2.0f);
+			FindGameObject<Fade>()->FadeInStart(2.0f);
 		}
 		fadeStart = true;
 	}
 
-	if (fadeStart && FindGameObject<Fade>()->FadeEnd())
+	if (fadeStart && !FindGameObject<Fade>()->FadeEnd())
 	{
 		changeScene = true;
 		//FindGameObject<Sound>()->StopPlayBGM();
