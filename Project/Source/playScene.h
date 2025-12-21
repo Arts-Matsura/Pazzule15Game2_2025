@@ -1,7 +1,7 @@
 #pragma once
 #include "../Library/sceneBase.h"
 #include "sound.h"
-
+#include "fade.h"
 
 class PlayScene : public 
 	SceneBase {
@@ -14,4 +14,5 @@ private:
 	int hShadow; // シャドウバッファのハンドラ
 
 	Sound* sound;
+	Fade* fade;
 };

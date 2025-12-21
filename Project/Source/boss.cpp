@@ -1,7 +1,10 @@
 #include "boss.h"
+#include "../Library/sceneManager.h"
+#include "../Library/resourceLoader.h"
 
 #include "cloudManager.h"
 #include "sound.h"
+#include "fade.h"
 
 #include "../Library/time.h"
 
@@ -15,16 +18,16 @@ Boss::Boss()
 	int randNum = GetRand(4) + 1;
 	std::string path = "data\\2D\\boss_0" + std::to_string(randNum) + ".png";
 	//std::string path = "data\\2D\\boss_03.png";
-	image = LoadGraph(path.c_str());
+	image = ResourceLoader::LoadGraph(path.c_str());
 
 	path = "data\\2D\\boss_white_0" + std::to_string(randNum) + ".png";
-	whiteimage = LoadGraph(path.c_str());
+	whiteimage = ResourceLoader::LoadGraph(path.c_str());
 
 	path = "data\\2D\\background_0" + std::to_string(randNum) + ".png";
-	backimage = LoadGraph(path.c_str());
-	bookimage = LoadGraph("data\\2D\\book.png");
-	bookbackimage = LoadGraph("data\\2D\\leftback.png");
-	boximage = LoadGraph("data\\2D\\box.png");
+	backimage = ResourceLoader::LoadGraph(path.c_str());
+	bookimage = ResourceLoader::LoadGraph("data\\2D\\book.png");
+	bookbackimage = ResourceLoader::LoadGraph("data\\2D\\leftback.png");
+	boximage = ResourceLoader::LoadGraph("data\\2D\\box.png");
 
 	bossName = "‚Ú‚·‚¾‚æ";
 
@@ -80,14 +83,28 @@ Boss::Boss()
 
 	boxPos.x = 40.0f;
 	boxPos.y = 100.0f;
+
+	finishCounter = 0.0f;
+	fadeStart = false;
+
+	gameEnd = false;
 }
 
 Boss::~Boss()
 {
+	delete cloud;
+	delete darkness;
+	delete sentence;
+
+	DeleteFontToHandle(fontHandle);
+	DeleteFontToHandle(fontOutHandle);
 }
 
 void Boss::Update()
 {
+	if (gameEnd)
+		return;
+
 	ACTION nextAction = static_cast<ACTION>(GetRand(ACTION_MAX - 1));
 	int sideNum = GetRand(1) + 1;
 	int sidePos = GetRand(3);
@@ -278,6 +295,26 @@ void Boss::Update()
 		}
 		else
 			downCounter += Time::DeltaTime();
+
+		if (sizeY <= 0.0f)
+		{
+			finishCounter += Time::DeltaTime();
+			if (finishCounter > 3.0f)
+			{
+				if (!fadeStart)
+				{
+					FindGameObject<Fade>()->FadeOutStart(2.0f);
+				}
+				fadeStart = true;
+			}
+		}
+
+		if (fadeStart && FindGameObject<Fade>()->FadeEnd())
+		{
+			//FindGameObject<Sound>()->StopPlayBGM();
+			gameEnd = true;
+			//SceneManager::ChangeScene("TitleScene");
+		}
 
 		isDead = true;
 

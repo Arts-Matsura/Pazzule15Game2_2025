@@ -21,6 +21,23 @@ Sound::Sound()
 
 Sound::~Sound()
 {
+	for (int i = 0; i < SOUND::SOUND_MAX; i++)
+	{
+		if (soundHandle[i] != -1)
+		{
+			DeleteSoundMem(soundHandle[i]);
+			soundHandle[i] = -1;
+		}
+	}
+
+	for (int i = 0; i < BGM::BGM_MAX; i++)
+	{
+		if (BGMHandle[i] != -1)
+		{
+			DeleteSoundMem(BGMHandle[i]);
+			BGMHandle[i] = -1;
+		}
+	}
 }
 
 void Sound::Update()

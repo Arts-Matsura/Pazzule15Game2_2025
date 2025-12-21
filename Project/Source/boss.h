@@ -15,6 +15,8 @@ public:
 	float InversionLevel() { return inversionLevel; }
 
 	void Damage(int damageNum, float stopnum);
+
+	bool GameEnd() { return gameEnd; }
 private:
 
 	enum ACTION {
@@ -82,4 +84,8 @@ private:
 	Vector2 damagePos[3];
 
 	Vector2 boxPos;
+
+	float finishCounter;
+	bool fadeStart;
+	bool gameEnd;
 };

@@ -17,6 +17,9 @@ Attack::Attack()
 
 Attack::~Attack()
 {
+    delete effect;
+
+
 }
 
 void Attack::Update()
@@ -103,7 +106,7 @@ void Attack::Draw()
 
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-    effect->Draw();
+    //effect->Draw();
 }
 
 Vector2 Attack::Bezier2(float t)
