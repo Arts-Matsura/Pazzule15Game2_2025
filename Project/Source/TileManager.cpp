@@ -2,12 +2,14 @@
 
 TileManager::TileManager()
 {
-	CreateTiles(4, 4);
-
+	// イベント登録
 	OnMoveTile += [this] { this->OnMoveEvent(); };
 	OnPerfectTile += [this] { this->OnPerfectEvent(); };
-	OnCreateTile += [this] { this->MoveRandomTile(10); };
+	OnCreateTile += [this] { this->MoveRandomTile(15); };
 	OnCreateTile += [] { ContextTile& Context = ContextTile::Instance();  Context.LoadGraph(GetRand(Context.IMAGE_MAX), Context.tileCount); };
+
+	// タイル作成
+	CreateTiles(4, 4);
 }
 
 TileManager::~TileManager()
@@ -147,12 +149,27 @@ void TileManager::OnPerfectEvent()
 
 void TileManager::MoveRandomTile(int move_count)
 {
-	static const int dmax = 3;
-	static const int dir[dmax] = { -1,0,1 }; // 上下左右
+	const Vector2I dir[4] = {
+		Vector2I(0, -1), // 上
+		Vector2I(0, 1),  // 下
+		Vector2I(-1, 0), // 左
+		Vector2I(1, 0)   // 右
+	};
 
 	// シャッフル
+	int prev_id = GetRand(4);
 	for (int i = 0; i < move_count; i++)
 	{
-		OnInputTile(Vector2I(dir[GetRand(dmax)], dir[GetRand(dmax)]));
+		OnInputTile(Vector2I(dir[prev_id]));
+		// IDの抽選(雑)
+		while(true)
+		{
+			int next_id = GetRand(4);
+			if (next_id != prev_id)
+			{
+				prev_id = next_id;
+				break;
+			}
+		}
 	}
 }

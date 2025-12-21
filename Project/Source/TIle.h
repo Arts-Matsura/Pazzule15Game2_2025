@@ -12,13 +12,15 @@ private:
 public:
 	//private
 	int hImage = -1;
+	// private
+	int prevId = -1;
 
 	//private
 	Vector2I imageSize = Vector2I(512, 512);
 	//private
 	int tileCount = 4;
 	//public
-	const int IMAGE_MAX = 4;
+	const int IMAGE_MAX = 5;
 
 	//public
 	void LoadGraph(int id, int tileCount);

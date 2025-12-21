@@ -38,12 +38,25 @@ void Tile::Draw()
 	{
 		Vector2 pos = Vector2(transform.position + transform.scale) + BasePosition;
 		Renderer::RectGraph(pos, offsetuv, ContextTile::Instance().imageSize / ContextTile::Instance().tileCount, ContextTile::Instance().hImage);
-		Renderer::Text(pos, Color::Magenta(), std::to_string(id));
+		
+		// ID•\Ž¦
+		if (false)//Œã‚Å‹A‚é‚©‚à
+		{
+			Renderer::Text(pos, Color::Magenta(), std::to_string(id));
+		}
 	}
 }
 
 void ContextTile::LoadGraph(int id, int tileCount)
 {
+	// “¯‚¶‰æ‘œID‚È‚ç‚¸‚ç‚·
+	if (ContextTile::prevId == id)
+	{
+		id = (id + 1) % IMAGE_MAX;
+	}
+
+	ContextTile::prevId = id;
+
 	int& hImage = ContextTile::hImage;
 	if (hImage <= 0)
 	{
