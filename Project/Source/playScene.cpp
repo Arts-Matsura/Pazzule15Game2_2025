@@ -1,5 +1,6 @@
 #include "playScene.h"
 #include "../Library/sceneManager.h"
+#include "../Library/resourceLoader.h"
 #include <DxLib.h>
 #include "GameMain.h"
 
@@ -7,20 +8,24 @@
 #include "darkness.h"
 #include "boss.h"
 #include "attack.h"
+#include "judge.h"
 
 PlayScene::PlayScene()
 {
-
 	new Boss();
 	new Attack();
 
 	new GameMain();//CoGƒo[ƒWƒ‡ƒ“‚ªˆá‚¤(4.1ˆÈã)
+
+	new Judge();
 
 	sound = new Sound();
 	sound->SetPlayBGM(Sound::BGM::PLAY, 9500);
 
 	fade = new Fade();
 	fade->FadeOutStart(1.0f);
+
+	image = ResourceLoader::LoadGraph("data\\2D\\gameback.png");
 }
 
 PlayScene::~PlayScene()
@@ -39,7 +44,7 @@ void PlayScene::Update()
 		SceneManager::ChangeScene("TitleScene");
 	}*/
 
-	if (FindGameObject<Boss>()->GameEnd())
+	if (FindGameObject<Judge>()->ChangeScene())
 	{
 		sound->StopPlayBGM();
 		SceneManager::ChangeScene("TitleScene");

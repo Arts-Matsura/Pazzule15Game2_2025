@@ -155,6 +155,8 @@
     <ClInclude Include="Source\effect2D.h" />
     <ClInclude Include="Source\enemy.h" />
     <ClInclude Include="Source\fade.h" />
+    <ClInclude Include="Source\judge.h" />
+    <ClInclude Include="Source\resultScene.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\control.h" />
     <ClInclude Include="Source\CsvReader.h" />
@@ -214,6 +216,7 @@
     <ClCompile Include="Source\Fire.cpp" />
     <ClCompile Include="Source\GameMain.cpp" />
     <ClCompile Include="Source\Ground.cpp" />
+    <ClCompile Include="Source\judge.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\Locus.cpp" />
     <ClCompile Include="Source\ManagerController.cpp" />
@@ -222,6 +225,7 @@
     <ClCompile Include="Source\Object3D.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\playScene.cpp" />
+    <ClCompile Include="Source\resultScene.cpp" />
     <ClCompile Include="Source\sceneFactory.cpp" />
     <ClCompile Include="Source\sentence.cpp" />
     <ClCompile Include="Source\SingletonSample.cpp" />

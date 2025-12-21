@@ -1,5 +1,7 @@
 #include "sentence.h"
 
+#include "../Library/time.h"
+
 namespace {
 	std::string BOSS_NAMES[] = {"炎獄の魔王 エンジャーク",
 								"漆黒の邪神 ハセガーワT",
@@ -34,6 +36,8 @@ Sentence::Sentence(int num)
 	);
 
 	state = STATE::NEXT_START;
+
+	deleteCounter = 0.0f;
 }
 
 Sentence::~Sentence()
@@ -95,6 +99,19 @@ void Sentence::Update()
 
 		break;
 	case Sentence::NOW_CHANGE:
+
+		if (deleteCounter > 2.0f)
+		{
+			nextSentence = "";
+			nowSentence = "";
+			isAction = true;
+			frame = 0;
+			byte = 0;
+			deleteCounter = 0.0f;
+		}
+
+		deleteCounter += Time::DeltaTime();
+
 		break;
 	}
 }
@@ -134,4 +151,5 @@ void Sentence::SetNextSentence(std::string next)
 	isAction = true;
 	frame = 0;
 	byte = 0;
+	deleteCounter = 0.0f;
 }

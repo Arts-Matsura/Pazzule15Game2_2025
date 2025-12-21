@@ -138,6 +138,12 @@
     <ClCompile Include="Source\fade.cpp">
       <Filter>z_bannnai</Filter>
     </ClCompile>
+    <ClCompile Include="Source\judge.cpp">
+      <Filter>z_bannnai</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\resultScene.cpp">
+      <Filter>z_bannnai</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -292,6 +298,12 @@
       <Filter>z_bannnai</Filter>
     </ClInclude>
     <ClInclude Include="Source\fade.h">
+      <Filter>z_bannnai</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\judge.h">
+      <Filter>z_bannnai</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\resultScene.h">
       <Filter>z_bannnai</Filter>
     </ClInclude>
   </ItemGroup>

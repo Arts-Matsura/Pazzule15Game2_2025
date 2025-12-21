@@ -13,6 +13,11 @@ Sound::Sound()
 	soundHandle[SOUND::CLOUD] = ResourceLoader::LoadSoundMem("data\\Sound\\cloud_Sound.wav");
 	soundHandle[SOUND::DARKNESS] = ResourceLoader::LoadSoundMem("data\\Sound\\darkness_Sound.wav");
 	soundHandle[SOUND::INVERSION] = ResourceLoader::LoadSoundMem("data\\Sound\\inversion_Sound.wav");
+	soundHandle[SOUND::FIRST_VOICE] = ResourceLoader::LoadSoundMem("data\\Sound\\bossVoiceFirst_Sound.wav");
+	soundHandle[SOUND::END_VOICE] = ResourceLoader::LoadSoundMem("data\\Sound\\bossVoiceEnd_Sound.wav");
+	soundHandle[SOUND::BOSS_DOWN] = ResourceLoader::LoadSoundMem("data\\Sound\\bossDown_Sound.wav");
+	soundHandle[SOUND::GAME_CLEAR] = ResourceLoader::LoadSoundMem("data\\Sound\\gameClear_Sound.mp3");
+	
 
 	BGMHandle[BGM::TITLE] = ResourceLoader::LoadSoundMem("data\\Sound\\Title_BGM.wav");
 	BGMHandle[BGM::PLAY] = ResourceLoader::LoadSoundMem("data\\Sound\\Play_BGM.wav");

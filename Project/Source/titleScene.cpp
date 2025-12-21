@@ -38,7 +38,7 @@ TitleScene::~TitleScene()
 void TitleScene::Update()
 {
 	if (CheckHitKey(KEY_INPUT_V)) {
-		sound->SetPlaySound(Sound::SOUND::START, 10000);
+		sound->SetPlaySound(Sound::SOUND::GAME_CLEAR, 10000);
 	}
 
 	if (CheckHitKey(KEY_INPUT_SPACE)&&!isPushKey) {

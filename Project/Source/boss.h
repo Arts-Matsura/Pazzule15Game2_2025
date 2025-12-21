@@ -17,6 +17,7 @@ public:
 	void Damage(int damageNum, float stopnum);
 
 	bool GameEnd() { return gameEnd; }
+	int BossHP() { return HP; }
 private:
 
 	enum ACTION {
@@ -88,4 +89,6 @@ private:
 	float finishCounter;
 	bool fadeStart;
 	bool gameEnd;
+
+	bool isDownSound;
 };

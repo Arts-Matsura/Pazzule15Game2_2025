@@ -50,7 +50,12 @@ void Attack::Update()
         {
             t = 1.0f;
             m_isMoving = false;
-            FindGameObject<Boss>()->Damage(2, 0.15f);
+            int damage = 2;
+            std::string damageString = std::to_string(damage);
+            FindGameObject<Boss>()->Damage(damage, 0.15f);
+
+            if (FindGameObject<Boss>()->BossHP() - damage > 0)
+                FindGameObject<Sentence>()->SetNextSentence(FindGameObject<Sentence>()->BossName() + "‚É\n‹­—Í‚È–‚–@‚ÌUŒ‚II");
 
             effect->SetEffect(Effect2D::TYPE::TYPE_01, m_pos, 50);
             FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKPLASMA, 9000);

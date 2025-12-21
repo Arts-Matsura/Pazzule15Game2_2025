@@ -2,6 +2,7 @@
 #include "../Library/gameObject.h"
 
 #include "effect2D.h"
+#include "sentence.h"
 #include <vector>
 
 class Attack :public GameObject {
@@ -38,4 +39,5 @@ private:
     std::vector<Particle> particles;
 
     Effect2D* effect;
+    //Sentence* sentence;
 };

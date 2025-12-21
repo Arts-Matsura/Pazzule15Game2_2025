@@ -5,6 +5,7 @@
 #include "cloudManager.h"
 #include "sound.h"
 #include "fade.h"
+#include "judge.h"
 
 #include "../Library/time.h"
 
@@ -88,6 +89,8 @@ Boss::Boss()
 	fadeStart = false;
 
 	gameEnd = false;
+
+	isDownSound = false;
 }
 
 Boss::~Boss()
@@ -102,7 +105,7 @@ Boss::~Boss()
 
 void Boss::Update()
 {
-	if (gameEnd)
+	if (gameEnd || !FindGameObject<Judge>()->GameStart() || FindGameObject<Judge>()->GameEnd())
 		return;
 
 	ACTION nextAction = static_cast<ACTION>(GetRand(ACTION_MAX - 1));
@@ -285,10 +288,15 @@ void Boss::Update()
 		if(!isDead)
 		{
 			sentence->SetNextSentence(sentence->BossName() + "‚Í“|‚ê‚½");
+			FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::END_VOICE, 9000);
 		}
 
 		if (downCounter > 1.5f)
 		{
+			if (!isDownSound)
+				FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::BOSS_DOWN, 9000);
+
+			isDownSound = true;
 			sizeY -= downSpeed;
 			posY += downSpeed;
 			downSpeed++;
@@ -299,21 +307,10 @@ void Boss::Update()
 		if (sizeY <= 0.0f)
 		{
 			finishCounter += Time::DeltaTime();
-			if (finishCounter > 3.0f)
+			if (finishCounter > 1.5f)
 			{
-				if (!fadeStart)
-				{
-					FindGameObject<Fade>()->FadeOutStart(2.0f);
-				}
-				fadeStart = true;
+				FindGameObject<Judge>()->EndCountStart();
 			}
-		}
-
-		if (fadeStart && FindGameObject<Fade>()->FadeEnd())
-		{
-			//FindGameObject<Sound>()->StopPlayBGM();
-			gameEnd = true;
-			//SceneManager::ChangeScene("TitleScene");
 		}
 
 		isDead = true;

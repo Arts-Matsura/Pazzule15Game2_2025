@@ -12,6 +12,7 @@ public:
 	void Draw() override;
 private:
 	int hShadow; // シャドウバッファのハンドラ
+	int image;
 
 	Sound* sound;
 	Fade* fade;

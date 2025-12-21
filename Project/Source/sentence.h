@@ -36,4 +36,5 @@ private:
 
 	int fontHandle;
 
+	float deleteCounter;
 };
