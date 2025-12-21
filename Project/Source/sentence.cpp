@@ -4,7 +4,7 @@
 
 namespace {
 	std::string BOSS_NAMES[] = {"炎獄の魔王 エンジャーク",
-								"漆黒の邪神 ハセガーワT",
+								"漆黒の邪神 ゲーティア",
 								"氷結の蒼龍 ゼロクリス",
 								"龍王 グレンドラゴ",
 								"超神龍 オーバーワールド" };
@@ -55,6 +55,38 @@ int GetCharBytes(unsigned char c)
 	return 1;
 }
 
+bool IsDrawableUTF8Char(const std::string& s, int index, int bytes)
+{
+	if (index + bytes > s.size())
+		return false;
+
+	unsigned char c = (unsigned char)s[index];
+
+	// ASCII制御文字は除外
+	if (bytes == 1)
+	{
+		if (c < 0x20 || c == 0x7F)
+			return false;
+		return true;
+	}
+
+	// UTF-8 日本語（3バイト想定）
+	if (bytes == 3)
+	{
+		unsigned char c1 = (unsigned char)s[index + 1];
+		unsigned char c2 = (unsigned char)s[index + 2];
+
+		// UTF-8継続バイトチェック
+		if ((c1 & 0xC0) != 0x80) return false;
+		if ((c2 & 0xC0) != 0x80) return false;
+
+		return true;
+	}
+
+	// それ以外（2バイト,4バイト）は今回は描画しない
+	return false;
+}
+
 void Sentence::Update()
 {
 	if (!isAction)
@@ -82,22 +114,33 @@ void Sentence::Update()
 		{
 			if (byte < nextSentence.size())
 			{
-				byte += GetCharBytes(
+				// ★追加：次の1文字のバイト数取得
+				int charBytes = GetCharBytes(
 					static_cast<unsigned char>(nextSentence[byte])
 				);
+
+				// ★追加：文字化けチェック
+				if (IsDrawableUTF8Char(nextSentence, byte, charBytes))
+				{
+					byte += charBytes; // 正常文字 → 表示
+				}
+				else
+				{
+					byte += charBytes; // 異常文字 → 表示しないが進行
+				}
 			}
 			else
 			{
-				// ★ 全文字表示完了
-				//nextSentence.clear();   // empty() 状態にする
-				state = STATE::NOW_CHANGE; // 次の状態へ
+				// ★全文字表示完了
+				state = STATE::NOW_CHANGE;
 			}
 		}
 
-		// charCount文字分だけ切り出す
+		// ★表示OKな部分だけ描画される
 		nowSentence = nextSentence.substr(0, byte);
 
 		break;
+
 	case Sentence::NOW_CHANGE:
 
 		if (deleteCounter > 2.0f)

@@ -57,8 +57,27 @@ void Attack::Update()
             if (FindGameObject<Boss>()->BossHP() - damage > 0)
                 FindGameObject<Sentence>()->SetNextSentence(FindGameObject<Sentence>()->BossName() + "‚É\n‹­—Í‚È–‚–@‚ÌUŒ‚II");
 
-            effect->SetEffect(Effect2D::TYPE::TYPE_01, m_pos, 50);
-            FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKPLASMA, 9000);
+            int random = GetRand(2);
+
+            switch (random)
+            {
+            case 0:
+                effect->SetEffect(Effect2D::TYPE::TYPE_01, m_pos, 50);
+                FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKPLASMA, 9000);
+                break;
+            case 1:
+                effect->SetEffect(Effect2D::TYPE::TYPE_02, m_pos, 50);
+                FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKBOMB_01, 9000);
+                FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKBOMB_02, 9000);
+                break;
+            case 2:
+                effect->SetEffect(Effect2D::TYPE::TYPE_03, m_pos, 50);
+                FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKMAGIC_01, 9000);
+                FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKMAGIC_02, 9000);
+                FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKMAGIC_03, 9000);
+                break;
+            }
+            
             
             FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKHIT_01, 9000);
             FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACKHIT_02, 9000);
@@ -92,7 +111,7 @@ void Attack::Update()
 void Attack::Draw()
 {
 
-    DrawCircle((int)m_pos.x, (int)m_pos.y, 10, GetColor(255, 0, 0), TRUE);
+    //DrawCircle((int)m_pos.x, (int)m_pos.y, 10, GetColor(255, 0, 0), TRUE);
 
 
     SetDrawBlendMode(DX_BLENDMODE_ADD, 255);

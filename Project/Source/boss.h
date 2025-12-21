@@ -18,6 +18,8 @@ public:
 
 	bool GameEnd() { return gameEnd; }
 	int BossHP() { return HP; }
+
+	Vector2 CenterPosition() { return centerPos; }
 private:
 
 	enum ACTION {
@@ -47,6 +49,7 @@ private:
 	int bookimage;
 	int bookbackimage;
 	int boximage;
+	int backbackimage;
 
 	std::string bossName;
 
@@ -91,4 +94,6 @@ private:
 	bool gameEnd;
 
 	bool isDownSound;
+
+	Vector2 centerPos;
 };

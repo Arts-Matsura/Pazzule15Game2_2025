@@ -18,6 +18,7 @@ public:
 private:
 
 	int image;
+	int frameimage;
 	float imageSize;
 	float sizeSpeed;
 

@@ -10,6 +10,7 @@
 Judge::Judge()
 {
 	image = ResourceLoader::LoadGraph("data\\2D\\endimage.png");
+	frameimage = ResourceLoader::LoadGraph("data\\2D\\enuimageframe.png");
 	imageSize = 0.0f;
 	sizeSpeed = 0.001f;
 
@@ -83,5 +84,8 @@ void Judge::Update()
 void Judge::Draw()
 {
 	if (isEndCount)
+	{
+		DrawRectRotaGraph(Screen::WIDTH / 2, Screen::HEIGHT / 2 - 80, 0, 0, 1536, 1024, imageSize, 0.0f, frameimage, true);
 		DrawRectRotaGraph(Screen::WIDTH / 2, Screen::HEIGHT / 2, 0, 0, 1024, 1024, imageSize, 0.0f, image, true);
+	}
 }

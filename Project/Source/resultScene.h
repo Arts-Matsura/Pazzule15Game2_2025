@@ -14,6 +14,8 @@ private:
 	int image;
 	bool isPushKey;
 
+	int fontHandle;
+
 	Sound* sound;
 	Fade* fade;
 };

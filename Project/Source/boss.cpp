@@ -29,6 +29,7 @@ Boss::Boss()
 	bookimage = ResourceLoader::LoadGraph("data\\2D\\book.png");
 	bookbackimage = ResourceLoader::LoadGraph("data\\2D\\leftback.png");
 	boximage = ResourceLoader::LoadGraph("data\\2D\\box.png");
+	backbackimage = ResourceLoader::LoadGraph("data\\2D\\gameback.png");
 
 	bossName = "‚Ú‚·‚¾‚æ";
 
@@ -91,6 +92,8 @@ Boss::Boss()
 	gameEnd = false;
 
 	isDownSound = false;
+
+	centerPos = Vector2(0, 0);
 }
 
 Boss::~Boss()
@@ -317,10 +320,15 @@ void Boss::Update()
 
 		break;
 	}
+
+	float boxLevel = std::clamp(1.0f - inversionLevel, 0.0f, 1.0f);
+	centerPos.x = 410 - boxPos.x * boxLevel;
+	centerPos.y = 400 + boxPos.y * boxLevel;
 }
 
 void Boss::Draw()
 {
+	DrawRectRotaGraph(Screen::WIDTH / 2, Screen::HEIGHT / 2, 0, 0, 1280, 720, 2.0f, 0.0f, backbackimage, true);
 	
 	DrawRectRotaGraph(200, 450, 0, 0, 1024, 732, 1.3f * inversionLevel, 0.0f, bookbackimage, true);
 	DrawRectRotaGraph(390, 450, 0, 0, 788, 900, 1.05f * inversionLevel, 0.0f, bookimage, true);

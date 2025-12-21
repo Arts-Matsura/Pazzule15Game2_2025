@@ -2,7 +2,7 @@
 #include "../Library/gameObject.h"
 
 namespace {
-	static const int EFFECT_MAX = 2;
+	static const int EFFECT_MAX = 9;
 }
 
 class Effect2D :public GameObject {
