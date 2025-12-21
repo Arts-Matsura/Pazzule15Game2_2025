@@ -3,6 +3,7 @@
 #include "ObjectManager.h"
 #include "Time.h"
 #include "resourceLoader.h"
+#include "DOTween.h"
 #include <DxLib.h>
 
 void AppInit()
@@ -11,12 +12,14 @@ void AppInit()
 	SceneManager::Init();
 	Time::Init();
 	ResourceLoader::Init();
+	DOTween::Initialize();
 }
 
 void AppUpdate()
 {
 	SceneManager::Update();
 	ObjectManager::Update();
+	DOTween::Update();
 }
 
 void AppDraw()
@@ -32,6 +35,7 @@ void AppRelease()
 	SceneManager::Release();
 	ObjectManager::Release();
 	ResourceLoader::Release();
+	DOTween::Release();
 
 	OutputDebugStringA("---------- This app program is finished ----------\n");
 }

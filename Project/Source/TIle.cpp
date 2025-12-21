@@ -2,6 +2,7 @@
 #include "Renderer2D.h"
 #include<assert.h>
 #include "../Library/resourceLoader.h"
+#include "../library/DOTween.h"
 
 ContextTile* ContextTile::instance = nullptr;
 
@@ -27,9 +28,16 @@ Tile::~Tile()
 void Tile::SetTile(const Vector2I& _delta, float tileSize)
 {
 	delta = _delta;
-	//transform.position = Vector3(_delta.x, _delta.y, 0.0f) * tileSize;
-	 transform.position = Vector3(_delta.x, _delta.y, 0.0f) * (ContextTile::Instance().imageSize.x / ContextTile::Instance().tileCount);
-	//transform.scale = Vector3(tileSize, tileSize, 1.0f) / 2.0f;
+	Vector3 next = Vector3(_delta.x, _delta.y, 0.0f) * (ContextTile::Instance().imageSize.x / ContextTile::Instance().tileCount);
+	if (DOTween::IsMoving(&transform.position))
+	{
+		transform.position = next;
+	}
+	else
+	{
+		//DOTween::Move(&transform.position, next, 0.1f);
+		transform.position = next;
+	}
 }
 
 void Tile::Draw()
