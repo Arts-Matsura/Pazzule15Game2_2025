@@ -23,8 +23,8 @@ void Control::Draw()
 void Control::UpdateInput()
 {
 	// キー入力の更新（方向は -1 / 0 / +1）
-	currentKey.y = CheckHitKey(KEY_INPUT_UP) - CheckHitKey(KEY_INPUT_DOWN);
-	currentKey.x = CheckHitKey(KEY_INPUT_LEFT) - CheckHitKey(KEY_INPUT_RIGHT);
+	currentKey.y = CheckHitKey(KEY_INPUT_W) - CheckHitKey(KEY_INPUT_S);
+	currentKey.x = CheckHitKey(KEY_INPUT_A) - CheckHitKey(KEY_INPUT_D);
 
 	// 押されているか判定
 	if (currentKey.x != 0 || currentKey.y != 0)
