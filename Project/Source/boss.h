@@ -46,10 +46,7 @@ private:
 	int image;
 	int whiteimage;
 	int backimage;
-	int bookimage;
-	int bookbackimage;
-	int boximage;
-	int backbackimage;
+	
 
 	std::string bossName;
 

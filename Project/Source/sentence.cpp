@@ -27,7 +27,8 @@ Sentence::Sentence(int num)
 	bossName = BOSS_NAMES[num - 1].c_str();
 
 	nowSentence =  "";
-	nextSentence = bossName + "があらわれた！！";
+	std::string gaarawareta = "があらわれた！！";
+	nextSentence = bossName + gaarawareta;
 
 	fontHandle = CreateFontToHandle(
 		"KHドット道玄坂16", // フォント名

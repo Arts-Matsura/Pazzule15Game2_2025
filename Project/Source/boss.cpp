@@ -26,10 +26,7 @@ Boss::Boss()
 
 	path = "data\\2D\\background_0" + std::to_string(randNum) + ".png";
 	backimage = ResourceLoader::LoadGraph(path.c_str());
-	bookimage = ResourceLoader::LoadGraph("data\\2D\\book.png");
-	bookbackimage = ResourceLoader::LoadGraph("data\\2D\\leftback.png");
-	boximage = ResourceLoader::LoadGraph("data\\2D\\box.png");
-	backbackimage = ResourceLoader::LoadGraph("data\\2D\\gameback.png");
+	
 
 	bossName = "‚Ú‚·‚¾‚æ";
 
@@ -108,6 +105,12 @@ Boss::~Boss()
 
 void Boss::Update()
 {
+
+	float boxLevel = std::clamp(1.0f - inversionLevel, 0.0f, 1.0f);
+	centerPos.x = 410 - boxPos.x * boxLevel;
+	centerPos.y = 400 + boxPos.y * boxLevel;
+
+
 	if (gameEnd || !FindGameObject<Judge>()->GameStart() || FindGameObject<Judge>()->GameEnd())
 		return;
 
@@ -321,22 +324,17 @@ void Boss::Update()
 		break;
 	}
 
-	float boxLevel = std::clamp(1.0f - inversionLevel, 0.0f, 1.0f);
-	centerPos.x = 410 - boxPos.x * boxLevel;
-	centerPos.y = 400 + boxPos.y * boxLevel;
+	
 }
 
 void Boss::Draw()
 {
-	DrawRectRotaGraph(Screen::WIDTH / 2, Screen::HEIGHT / 2, 0, 0, 1280, 720, 2.0f, 0.0f, backbackimage, true);
 	
-	DrawRectRotaGraph(200, 450, 0, 0, 1024, 732, 1.3f * inversionLevel, 0.0f, bookbackimage, true);
-	DrawRectRotaGraph(390, 450, 0, 0, 788, 900, 1.05f * inversionLevel, 0.0f, bookimage, true);
 	DrawRectRotaGraph(1200, 400, 0, 0, 1024, 1024, 1.0f * inversionLevel, 0.0f, backimage, true);
 
 	float boxLevel = std::clamp(1.0f - inversionLevel, 0.0f, 1.0f);
 
-	DrawRectRotaGraph(410 - boxPos.x * boxLevel, 400 + boxPos.y * boxLevel, 0, 0, 504, 504, 1.2f * inversionLevel, 0.0f, boximage, true);
+	
 
 
 	//DrawBox(100, 100, 2000, 2000, GetColor(0, 0, 0), TRUE);

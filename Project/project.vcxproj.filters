@@ -147,6 +147,9 @@
     <ClCompile Include="Library\DOTween.cpp">
       <Filter>Library</Filter>
     </ClCompile>
+    <ClCompile Include="Source\back.cpp">
+      <Filter>z_bannnai</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Screen.h" />
@@ -311,6 +314,9 @@
     </ClInclude>
     <ClInclude Include="Library\DOTween.h">
       <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\back.h">
+      <Filter>z_bannnai</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -147,6 +147,7 @@
     <ClInclude Include="Library\time.h" />
     <ClInclude Include="Source\Animator.h" />
     <ClInclude Include="Source\attack.h" />
+    <ClInclude Include="Source\back.h" />
     <ClInclude Include="Source\bootScene.h" />
     <ClInclude Include="Source\boss.h" />
     <ClInclude Include="Source\Camera.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Library\time.cpp" />
     <ClCompile Include="Source\Animator.cpp" />
     <ClCompile Include="Source\attack.cpp" />
+    <ClCompile Include="Source\back.cpp" />
     <ClCompile Include="Source\bootScene.cpp" />
     <ClCompile Include="Source\boss.cpp" />
     <ClCompile Include="Source\Camera.cpp" />

@@ -9,13 +9,16 @@
 #include "boss.h"
 #include "attack.h"
 #include "judge.h"
+#include "back.h"
 
 PlayScene::PlayScene()
 {
-	new Boss();
-	new Attack();
+	new Back();
 
 	new GameMain();//CoGƒo[ƒWƒ‡ƒ“‚ªˆá‚¤(4.1ˆÈã)
+
+	new Boss();
+	new Attack();
 
 	new Judge();
 
