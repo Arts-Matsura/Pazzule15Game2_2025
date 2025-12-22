@@ -26,5 +26,5 @@ void Back::Draw()
 	
 	DrawRectRotaGraph(200, 450, 0, 0, 1024, 732, 1.3f * FindGameObject<Boss>()->InversionLevel(), 0.0f, bookbackimage, true);
 	DrawRectRotaGraph(390, 450, 0, 0, 788, 900, 1.05f * FindGameObject<Boss>()->InversionLevel(), 0.0f, bookimage, true);
-	DrawRectRotaGraph(FindGameObject<Boss>()->CenterPosition().x, FindGameObject<Boss>()->CenterPosition().y, 0, 0, 504, 504, 1.2f * FindGameObject<Boss>()->InversionLevel(), 0.0f, boximage, true);
+	DrawRectRotaGraph(FindGameObject<Boss>()->CenterPosition().x + 3, FindGameObject<Boss>()->CenterPosition().y + 3 , 0, 0, 504, 504, 1.12f * FindGameObject<Boss>()->InversionLevel(), 0.0f, boximage, true);
 }

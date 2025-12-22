@@ -1,4 +1,5 @@
 #include "TileManager.h"
+#include "attack.h"
 
 TileManager::TileManager()
 {
@@ -145,6 +146,9 @@ void TileManager::OnPerfectEvent()
 
 	DeleteTiles();
 	CreateTiles(4, 4);
+
+	Attack* attack = FindGameObject<Attack>();
+	if (attack != nullptr) attack->AttackStart();
 }
 
 void TileManager::MoveRandomTile(int move_count)
