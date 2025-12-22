@@ -23,6 +23,8 @@ public:
         float size;
     };
 
+    void AttackStart();
+
     void SpawnParticle(std::vector<Particle>& particles, float cx, float cy);
 private:
     Vector2 m_start;
