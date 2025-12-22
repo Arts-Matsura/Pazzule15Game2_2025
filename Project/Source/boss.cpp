@@ -65,7 +65,7 @@ Boss::Boss()
 		damagePos[i].y = 0.0f;
 	}
 
-	HP = 5;
+	HP = 6;
 
 	hitStop = 0.0f;
 
