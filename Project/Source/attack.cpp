@@ -3,6 +3,8 @@
 #include "boss.h"
 #include "sound.h"
 
+#include "TileManager.h"
+
 Attack::Attack()
 {
     m_start = { 410, 400 };
@@ -27,13 +29,15 @@ void Attack::Update()
     static int prevAKey = 0;
     int nowAKey = CheckHitKey(KEY_INPUT_A);
 
+    TileManager* tile = FindGameObject<TileManager>();
     // Aキー押下で初期化＆開始
-    if (nowAKey && !prevAKey)
+    if (nowAKey && !prevAKey/*tile != nullptr*/)
     {
-        m_frame = 0;
-        m_isMoving = true;
-        m_control = CreateControlPoint(300);
-        FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACK, 9000);
+        AttackStart();
+        if(tile->IsPerfectCheck())
+        {
+           
+        }
     }
     prevAKey = nowAKey;
 
@@ -163,6 +167,14 @@ Vector2 Attack::CreateControlPoint(float range)
     c.x = mid.x + px * offset;
     c.y = mid.y + py * offset;
     return c;
+}
+
+void Attack::AttackStart()
+{
+    m_frame = 0;
+    m_isMoving = true;
+    m_control = CreateControlPoint(300);
+    FindGameObject<Sound>()->SetPlaySound(Sound::SOUND::ATTACK, 9000);
 }
 
 void Attack::SpawnParticle(std::vector<Particle>& particles, float cx, float cy)
