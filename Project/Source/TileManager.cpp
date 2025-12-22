@@ -6,7 +6,7 @@ TileManager::TileManager()
 	// イベント登録
 	OnMoveTile += [this] { this->OnMoveEvent(); };
 	OnPerfectTile += [this] { this->OnPerfectEvent(); };
-	OnCreateTile += [this] { this->MoveRandomTile(35); };
+	OnCreateTile += [this] { this->MoveRandomTile(25); };
 	OnCreateTile += [] { ContextTile& Context = ContextTile::Instance();  Context.LoadGraph(GetRand(Context.IMAGE_MAX), Context.tileCount); };
 
 	// タイル作成
