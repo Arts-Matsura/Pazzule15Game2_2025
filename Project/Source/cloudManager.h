@@ -21,7 +21,8 @@ public:
 
 	void DeleteCloud();
 
-	int CloudImage(){ return cloudImage; }
+	int CloudImage()const{ return cloudImage; }
+	double AnimTimer()const { return animTimer; }
 
 	enum STATE {
 		BIGGER = 0,
@@ -35,6 +36,7 @@ private:
 	bool isEffect;
 	int effectAlphaLevel;
 	float size;
+	double animTimer;
 
 	STATE state;
 };

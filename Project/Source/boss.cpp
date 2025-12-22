@@ -210,6 +210,7 @@ void Boss::Update()
 		
 
 		switch (nowAction)
+		//switch (CLOUD_SIDE)
 		{
 		case Boss::CLOUD_SIDE:
 
@@ -260,7 +261,7 @@ void Boss::Update()
 			
 			isActionMessage = true;
 			//‚±‚±‚Å’Š‘I‚ðŠm’è‚³‚¹•¶Žš‚ð•\Ž¦‚·‚é
-			nowAction = nextAction;
+			nowAction = nextAction;//‚ˆ‚¤‚¥
 			switch (nowAction)
 			{
 			case Boss::CLOUD_SIDE:

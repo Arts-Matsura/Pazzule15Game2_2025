@@ -44,6 +44,7 @@ void CloudManager::Update()
 	else
 		biggerRate = 1.0f;
 
+	animTimer += 0.1;
 
 	if (isEffect)
 	{

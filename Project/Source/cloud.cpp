@@ -44,8 +44,10 @@ void Cloud::Draw(int x, int y)
 {
 	if (isCloud && efFrame <= 0.0f)
 	{
+		CloudManager* manager = FindGameObject<CloudManager>();
+
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alphaLevel);
-		DrawRectRotaGraph(200 + x * (556 / 4.0f), 200 + y * (556 / 4.0f), 0, 0, 496, 556, 0.35f, 0.0f, FindGameObject<CloudManager>()->CloudImage(), true);
+		DrawRectRotaGraph(200 + x * (556 / 4.0f), 200 + y * (556 / 4.0f), 0, 0, 496, 556, (sin(manager->AnimTimer()) * 0.1) + 0.35, 0.0f, manager->CloudImage(), true);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 }
