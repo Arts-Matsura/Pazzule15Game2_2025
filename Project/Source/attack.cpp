@@ -27,7 +27,7 @@ Attack::~Attack()
 void Attack::Update()
 {
     static int prevAKey = 0;
-    int nowAKey = CheckHitKey(KEY_INPUT_A);
+    int nowAKey = -1;// CheckHitKey(KEY_INPUT_A);
 
     TileManager* tile = FindGameObject<TileManager>();
     // Aキー押下で初期化＆開始
