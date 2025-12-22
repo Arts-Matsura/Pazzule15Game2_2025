@@ -26,4 +26,6 @@ private:
 	float efFrame; //エフェクトの時間
 
 	int alphaLevel;
+
+	float sizeCounter;
 };

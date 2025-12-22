@@ -74,13 +74,13 @@ void Darkness::Draw()
 	int mx, my;
 	GetMousePoint(&mx, &my);
 
-	int radius = 80; // 四角の半径
+	int radius = 120; // 四角の半径
 
 	//黒く隠したいエリア範囲
-	int areaL = 105;
-	int areaT = 97;
-	int areaR = 712;
-	int areaB = 702;
+	int areaL = 95;
+	int areaT = 87;
+	int areaR = 722;
+	int areaB = 712;
 
 	//範囲外対策：マウスがエリア外にあるとき描画しないように
 	mx = max(areaL + radius, min(mx, areaR - radius));

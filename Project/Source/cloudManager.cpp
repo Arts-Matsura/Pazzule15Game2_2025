@@ -1,4 +1,5 @@
 #include "cloudManager.h"
+#include "../Library/time.h"
 
 CloudManager::CloudManager()
 {
@@ -44,7 +45,7 @@ void CloudManager::Update()
 	else
 		biggerRate = 1.0f;
 
-	animTimer += 0.1;
+	animTimer += Time::DeltaTime();
 
 	if (isEffect)
 	{

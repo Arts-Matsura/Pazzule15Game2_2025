@@ -14,6 +14,8 @@ Cloud::Cloud()
 	efFrame = 0.0f;
 
 	alphaLevel = 255;
+
+	sizeCounter = 0.0f;
 }
 
 Cloud::~Cloud()
@@ -29,7 +31,10 @@ void Cloud::Update()
 	}
 
 	if (survivalTime > 0.0f)
+	{
 		survivalTime -= Time::DeltaTime();
+		sizeCounter += Time::DeltaTime();
+	}
 	else
 	{
 		if (alphaLevel > 0 && isCloud)
@@ -47,7 +52,7 @@ void Cloud::Draw(int x, int y)
 		CloudManager* manager = FindGameObject<CloudManager>();
 
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alphaLevel);
-		DrawRectRotaGraph(200 + x * (556 / 4.0f), 200 + y * (556 / 4.0f), 0, 0, 496, 556, (sin(manager->AnimTimer()) * 0.1) + 0.35, 0.0f, manager->CloudImage(), true);
+		DrawRectRotaGraph(200 + x * (556 / 4.0f), 200 + y * (556 / 4.0f), 0, 0, 496, 556, (sinf(sizeCounter) * 0.1) + 0.35, 0.0f, manager->CloudImage(), true);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 }
@@ -57,6 +62,7 @@ void Cloud::CreateEffect()
 	alphaLevel = 255;
 	isCreate = true;
 	efFrame = 0.25f;
+	sizeCounter = 0.0f;
 }
 
 void Cloud::UpdateCreateEffect()
