@@ -32,4 +32,5 @@ private:
 
 	std::vector<std::vector<Tile*>> tile_list;
 	Tile* air_tile;
+	bool can_move = false;
 };

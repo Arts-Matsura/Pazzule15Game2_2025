@@ -8,7 +8,7 @@ ContextTile* ContextTile::instance = nullptr;
 
 namespace
 {
-	static const Vector2 BasePosition = Vector2(-300.0f, -100.0f);
+	static const Vector2 BasePosition = Vector2(-580.0f, -240.0f);
 }
 
 Tile::Tile() : Tile(0) {}
