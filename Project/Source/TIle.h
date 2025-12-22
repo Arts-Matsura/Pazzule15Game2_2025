@@ -12,6 +12,7 @@ private:
 public:
 	//private
 	int hImage = -1;
+	int hMove = -1;
 	// private
 	int prevId = -1;
 

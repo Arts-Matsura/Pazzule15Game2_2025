@@ -45,8 +45,15 @@ void Tile::Draw()
 	if (transform.is_active)
 	{
 		Vector2 pos = Vector2(transform.position + transform.scale) + BasePosition;
-		Renderer::RectGraph(pos, offsetuv, ContextTile::Instance().imageSize / ContextTile::Instance().tileCount, ContextTile::Instance().hImage);
-		
+		if (id == 15)
+		{
+			Renderer::RectGraph(pos, Vector2I::Zero(), Vector2I(128, 128), ContextTile::Instance().hMove);
+		}
+		else
+		{
+			Renderer::RectGraph(pos, offsetuv, ContextTile::Instance().imageSize / ContextTile::Instance().tileCount, ContextTile::Instance().hImage);
+		}
+
 		// ID•\Ž¦
 		if (false)//Œã‚Å‹A‚é‚©‚à
 		{
@@ -76,8 +83,13 @@ void ContextTile::LoadGraph(int id, int tileCount)
 	static const std::string path = "data/2D/sheet_";
 	hImage = ResourceLoader::LoadGraph(path + std::to_string(id) + ".png");
 	assert(hImage >= 0);
-	
+
 	ContextTile::imageSize = GetGraphSize(hImage);
 	ContextTile::tileCount = tileCount;
 	ContextTile::tileSize = ContextTile::imageSize.x / static_cast<float>(tileCount);
+
+	if (ContextTile::hMove <= 0)
+	{
+		ContextTile::hMove = ResourceLoader::LoadGraph("data/2D/move_dir.png");
+	}
 }

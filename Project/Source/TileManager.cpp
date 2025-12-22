@@ -57,7 +57,7 @@ void TileManager::CreateTiles(int height, int width)
 
 	// ÅŒã‚Ìƒ^ƒCƒ‹‚ð”ñ•\Ž¦‚É‚·‚é
 	air_tile = tile_list[height - 1][width - 1];
-	air_tile->transform.SetActive(false);
+	//air_tile->transform.SetActive(false);
 
 	//move
 	ContextTile::Instance().tileCount = width;
